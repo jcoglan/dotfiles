@@ -1,0 +1,26 @@
+[user]
+    name = James Coglan
+    email = jcoglan@googlemail.com
+
+[alias]
+    ci = commit -a
+    co = checkout
+    st = status -a
+    praise = blame
+
+[apply]
+    whitespace = strip
+
+[diff]
+    color = auto
+    rename = copy
+
+[pager]
+    color = true
+
+[push]
+    default = tracking
+
+[status]
+    color = auto
+
