@@ -12,7 +12,7 @@ GREEN="\[\033[0;32m\]"
 BLACK="\[\033[0;30m\]"
 WHITE="\[\033[0;37m\]"
 
-PS1="$RED\w$YELLOW \$(parse_git_branch)$BLACK\$ "
+PS1="$RED[$(hostname)] \w$YELLOW \$(parse_git_branch)$BLACK\$ "
 
 # Turn off beeps
 xset -b
