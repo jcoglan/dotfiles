@@ -17,9 +17,10 @@ PS1="$RED\w$YELLOW \$(parse_git_branch)$BLACK\$ "
 # Turn off beeps
 xset -b
 
+alias ff-video="cp /tmp/Flash*"
 alias gr="grep -riTn --color --include"
-alias webpy="python -m SimpleHTTPServer"
 alias h="hostname"
+alias webpy="python -m SimpleHTTPServer"
 
 # Git
 alias gitd="git daemon --base-path=$HOME/projects --export-all"
