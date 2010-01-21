@@ -3,16 +3,17 @@
 
 function parse_git_branch {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "("${ref#refs/heads/}")"
+  echo "["${ref#refs/heads/}"]"
 }
 
 RED="\[\033[0;31m\]"
-YELLOW="\[\033[0;33m\]"
 GREEN="\[\033[0;32m\]"
+YELLOW="\[\033[0;33m\]"
+BLUE="\[\033[1;34m\]"
 BLACK="\[\033[0;30m\]"
 WHITE="\[\033[0;37m\]"
 
-PS1="$RED[$(hostname)] \w$YELLOW \$(parse_git_branch)$BLACK\$ "
+PS1="$RED$(hostname)$BLUE \w$YELLOW\$(parse_git_branch)$BLACK \$ "
 
 # Turn off beeps
 xset -b
