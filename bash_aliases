@@ -15,6 +15,8 @@ WHITE="\[\033[0;37m\]"
 
 PS1="$RED$(hostname)$BLUE \w$YELLOW\$(parse_git_branch)$BLACK \$ "
 
+if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+
 # Turn off beeps
 xset -b
 
