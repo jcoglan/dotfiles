@@ -1,6 +1,6 @@
 [user]
     name = James Coglan
-    email = jcoglan@googlemail.com
+    email = jcoglan@gmail.com
 
 [alias]
     ci = commit -a
