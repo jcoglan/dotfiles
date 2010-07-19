@@ -6,6 +6,7 @@
     ci = commit -a
     co = checkout
     st = status
+    su = submodule update --init --recursive
     praise = blame
 
 [apply]

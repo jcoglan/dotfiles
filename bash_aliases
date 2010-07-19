@@ -27,7 +27,7 @@ alias webpy="python -m SimpleHTTPServer"
 
 # Git
 alias gitd="git daemon --base-path=$HOME/projects --export-all"
-alias gpl="git pull --rebase && git submodule update"
+alias gpl="git pull --rebase && git submodule update --init --recursive"
 
 # Multiruby
 alias spek="multiruby -S spec"
