@@ -12,8 +12,9 @@ YELLOW="\[\033[0;33m\]"
 BLUE="\[\033[1;34m\]"
 BLACK="\[\033[0;30m\]"
 WHITE="\[\033[0;37m\]"
+DEFAULT_COLOR="\[\033[0;39m\]"
 
-PS1="$RED$(hostname)$BLUE \w$YELLOW\$(parse_git_branch)$BLACK \$ "
+PS1="$RED$(hostname)$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR \$ "
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
