@@ -6,6 +6,10 @@ function parse_git_branch {
   echo "["${ref#refs/heads/}"]"
 }
 
+function parse_rvm_env {
+  echo $GEM_HOME | cut -d"/" -f6
+}
+
 RED="\[\033[0;31m\]"
 GREEN="\[\033[0;32m\]"
 YELLOW="\[\033[0;33m\]"
@@ -18,7 +22,7 @@ PS1="$RED$(hostname)$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR \$ "
 
 if [ -s "$HOME/.rvm/scripts/rvm" ]; then
   source "$HOME/.rvm/scripts/rvm"
-  PS1="$RED$(hostname)($(echo $GEM_HOME | cut -d"/" -f6))$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR\n$ "
+  PS1="$RED$(hostname)(\$(parse_rvm_env))$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR\n$ "
 fi
 
 # Turn off beeps
