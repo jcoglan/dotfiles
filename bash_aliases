@@ -16,7 +16,10 @@ DEFAULT_COLOR="\[\033[0;39m\]"
 
 PS1="$RED$(hostname)$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR \$ "
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+if [ -s "$HOME/.rvm/scripts/rvm" ]; then
+  source "$HOME/.rvm/scripts/rvm"
+  PS1="$RED$(hostname)($(echo $GEM_HOME | cut -d"/" -f6))$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR\n$ "
+fi
 
 # Turn off beeps
 xset -b
