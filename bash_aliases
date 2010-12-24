@@ -25,6 +25,11 @@ if [ -s "$HOME/.rvm/scripts/rvm" ]; then
   PS1="$RED$(hostname)(\$(parse_rvm_env))$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR\n$ "
 fi
 
+if [ -f ~/.nvm/nvm.sh ]; then
+  . ~/.nvm/nvm.sh
+fi
+  
+
 # Turn off beeps
 xset -b
 
@@ -44,6 +49,6 @@ alias jem="multiruby -S gem"
 alias jem-install="multiruby -S gem install --no-ri --no-rdoc"
 
 if [ -f ~/.bash_custom ]; then
-    . ~/.bash_custom
+  . ~/.bash_custom
 fi
 
