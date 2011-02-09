@@ -38,6 +38,9 @@ alias gr="grep -riTn --color --include"
 alias h="hostname"
 alias webpy="python -m SimpleHTTPServer"
 
+alias curl-xhr="curl -H 'X-Requested-With: XMLHttpRequest'"
+alias ab-xhr="ab -H 'X-Requested-With: XMLHttpRequest'"
+
 # Git
 alias gitd="git daemon --base-path=$HOME/projects --export-all"
 alias gpl="git pull --rebase && git submodule update --init --recursive"
