@@ -29,6 +29,12 @@ if [ -f ~/.nvm/nvm.sh ]; then
   . ~/.nvm/nvm.sh
 fi
   
+# Change the window title of X terminals
+case $TERM in
+screen)
+    PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+;;
+esac
 
 # Turn off beeps
 xset -b
