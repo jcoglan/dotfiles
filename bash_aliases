@@ -6,6 +6,10 @@ function parse_git_branch {
   echo "["${ref#refs/heads/}"]"
 }
 
+function parse_nvm_env {
+  echo "node-$(echo $NVM_PATH | cut -d"/" -f5)"
+}
+
 function parse_rvm_env {
   echo $GEM_HOME | cut -d"/" -f6
 }
@@ -18,16 +22,16 @@ BLACK="\[\033[0;30m\]"
 WHITE="\[\033[0;37m\]"
 DEFAULT_COLOR="\[\033[0;39m\]"
 
-PS1="$RED$(hostname)$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR \$ "
-
 if [ -s "$HOME/.rvm/scripts/rvm" ]; then
   source "$HOME/.rvm/scripts/rvm"
-  PS1="$RED$(hostname)(\$(parse_rvm_env))$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR\n$ "
 fi
 
 if [ -f ~/.nvm/nvm.sh ]; then
   . ~/.nvm/nvm.sh
 fi
+
+PS1="$RED$(hostname)(\$(parse_nvm_env),\$(parse_rvm_env))$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR\n$ "
+
   
 # Change the window title of X terminals
 case $TERM in
