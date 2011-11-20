@@ -16,6 +16,9 @@
     branch = auto
     interactive = auto
 
+[core]
+    excludesfile = ~/.gitignore
+
 [apply]
     whitespace = strip
 
