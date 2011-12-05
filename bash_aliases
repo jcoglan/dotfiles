@@ -59,6 +59,7 @@ alias ab-xhr="ab -H 'X-Requested-With: XMLHttpRequest'"
 # Git
 alias gitd="git daemon --base-path=$HOME/projects --export-all"
 alias gpl="git pull --rebase && git submodule update --init --recursive"
+alias gsu="git submodule update --init --recursive"
 
 # Multiruby
 alias spek="multiruby -S spec"
