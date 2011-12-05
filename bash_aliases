@@ -41,7 +41,10 @@ screen)
 esac
 
 # Turn off beeps
-which xset >/dev/null && xset -b
+if [ $(which xset) ]
+then
+  xset -b
+fi
 
 alias ff-video="cp /tmp/Flash*"
 alias gr="grep -riTn --color --include"
