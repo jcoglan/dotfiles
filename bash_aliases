@@ -41,14 +41,17 @@ screen)
 esac
 
 # Turn off beeps
-hash xset 2>&- && xset -b
+if which xset >/dev/null; then
+  xset -b
+fi
 
 alias ff-video="cp /tmp/Flash*"
 alias gr="grep -riTn --color --include"
 alias h="hostname"
 alias webpy="python -m SimpleHTTPServer"
 
-hash pbcopy 2>&- || {
+if which pbcopy >/dev/null; then
+else
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
 }
