@@ -41,20 +41,18 @@ screen)
 esac
 
 # Turn off beeps
-if which xset >/dev/null; then
-  xset -b
-fi
+which xset >/dev/null && xset -b
 
 alias ff-video="cp /tmp/Flash*"
 alias gr="grep -riTn --color --include"
 alias h="hostname"
 alias webpy="python -m SimpleHTTPServer"
 
-if which pbcopy >/dev/null; then
-else
+if [ ! $(which pbcopy) ]
+then
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
-}
+fi
 
 alias curl-xhr="curl -H 'X-Requested-With: XMLHttpRequest'"
 alias ab-xhr="ab -H 'X-Requested-With: XMLHttpRequest'"
