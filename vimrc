@@ -23,6 +23,6 @@ set smartcase
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
 let Tlist_WinWidth = 40
 map <F4> :TlistToggle<CR>
-map <F8> :!ctags -R --fields=+afiklmnsS --extra=+q .<CR>
-au BufWritePost * silent ! [ -e tags ] && ctags -R --fields=+afiklmnsS --extra=+q . &
+map <F8> :!ctags -R --fields=+afiklmnsS --extra=+fq .<CR>
+au BufWritePost * silent ! [ -e tags ] && ctags -R --fields=+afiklmnsS --extra=+fq . &
 
