@@ -3,7 +3,9 @@ require 'fileutils'
 task :install do
   files = Dir.entries('.') - %w[. .. .git Rakefile]
   files.each do |file|
-    FileUtils.cp file, File.join(ENV['HOME'], '.' + file)
+    dest = File.join(ENV['HOME'], '.' + file)
+    FileUtils.rm_rf dest
+    FileUtils.cp_r file, dest
   end
 end
 
