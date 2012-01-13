@@ -7,6 +7,7 @@ set tabstop=2 shiftwidth=2
 set expandtab
 set backspace=indent,eol,start
 set cindent
+set pastetoggle=<F2>
 
 syntax enable
 set nowrap
@@ -22,5 +23,6 @@ set smartcase
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
 let Tlist_WinWidth = 40
 map <F4> :TlistToggle<CR>
-map <F8> :!/usr/bin/ctags -R --fields=+afiklmnsS --extra=+q .<CR>
+map <F8> :!ctags -R --fields=+afiklmnsS --extra=+q .<CR>
+au BufWritePost * silent ! [ -e tags ] && ctags -R --fields=+afiklmnsS --extra=+q . &
 
