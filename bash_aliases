@@ -22,6 +22,11 @@ BLACK="\[\033[0;30m\]"
 WHITE="\[\033[0;37m\]"
 DEFAULT_COLOR="\[\033[0;39m\]"
 
+if [ -s "$HOME/.rbenv/bin" ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
+
 if [ -s "$HOME/.rvm/scripts/rvm" ]; then
   source "$HOME/.rvm/scripts/rvm"
 fi
