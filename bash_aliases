@@ -1,16 +1,32 @@
 # Git info in prompt
 # http://railstips.org/2009/2/2/bedazzle-your-bash-prompt-with-git-info
-
-function parse_git_branch {
+function get_git_branch {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   echo "["${ref#refs/heads/}"]"
 }
 
-function parse_nvm_env {
+if [ -f ~/.nvm/nvm.sh ]; then
+  . ~/.nvm/nvm.sh
+fi
+
+function get_nvm_version {
   echo "node-$(echo $NVM_PATH | cut -d"/" -f5)"
 }
 
-function parse_rvm_env {
+if [ -s "$HOME/.rbenv/bin" ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
+
+function get_rbenv_version {
+  echo "ruby-$(rbenv version | cut -d" " -f1)"
+}
+
+if [ -s "$HOME/.rvm/scripts/rvm" ]; then
+  source "$HOME/.rvm/scripts/rvm"
+fi
+
+function get_rvm_version {
   echo $GEM_HOME | cut -d"/" -f6
 }
 
@@ -22,20 +38,7 @@ BLACK="\[\033[0;30m\]"
 WHITE="\[\033[0;37m\]"
 DEFAULT_COLOR="\[\033[0;39m\]"
 
-if [ -s "$HOME/.rbenv/bin" ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
-
-if [ -s "$HOME/.rvm/scripts/rvm" ]; then
-  source "$HOME/.rvm/scripts/rvm"
-fi
-
-if [ -f ~/.nvm/nvm.sh ]; then
-  . ~/.nvm/nvm.sh
-fi
-
-PS1="$RED$(hostname)(\$(parse_nvm_env),\$(parse_rvm_env))$BLUE \w$YELLOW\$(parse_git_branch)$DEFAULT_COLOR\n$ "
+PS1="$RED$(hostname)(\$(get_nvm_version),\$(get_rbenv_version))$BLUE \w$YELLOW\$(get_git_branch)$DEFAULT_COLOR\n$ "
 
   
 # Change the window title of X terminals
@@ -68,13 +71,6 @@ alias gitd="git daemon --base-path=$HOME/projects --export-all"
 alias gpl="git pull --rebase && git submodule update --init --recursive"
 alias gsu="git submodule update --init --recursive"
 
-# Multiruby
-alias spek="multiruby -S spec"
-alias cuke="multiruby -S cucumber"
-alias jem="multiruby -S gem"
-alias jem-install="multiruby -S gem install --no-ri --no-rdoc"
-
 if [ -f ~/.bash_custom ]; then
   . ~/.bash_custom
 fi
-
