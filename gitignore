@@ -1,4 +1,5 @@
 .DS_Store
+.goutputstream*
 .redcar
 *.swn
 *.swo
