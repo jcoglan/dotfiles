@@ -66,7 +66,6 @@ alias ab-xhr="ab -H 'X-Requested-With: XMLHttpRequest'"
 
 alias rb="rbenv exec"
 alias be="bundle exec"
-alias rbe="rbenv exec bundle exec"
 alias gem-uninstall="gem list | cut -d' ' -f1 | xargs gem uninstall -Iax"
 
 # Git
