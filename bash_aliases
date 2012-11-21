@@ -54,7 +54,8 @@ which xset >/dev/null && xset -b
 alias ff-video="cp /tmp/Flash*"
 alias gr="grep -riTn --color --include"
 alias h="hostname"
-alias webpy="python -m SimpleHTTPServer"
+alias pyweb="python -m SimpleHTTPServer"
+alias pyjson="python -m json.tool"
 
 which pbcopy >/dev/null || {
   alias pbcopy='xclip -selection clipboard'
