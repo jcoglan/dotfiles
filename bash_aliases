@@ -66,8 +66,6 @@ PS1="$RED$(hostname)(\$(get_nvm_version),\$(get_rbenv_version))$BLUE \w$YELLOW\$
 # This makes Vim et al use the full color palette
 if [ "$COLORTERM" = "gnome-terminal" ]; then
   export TERM=xterm-256color
-else
-  export TERM=xterm
 fi
 
 # Change the window title of X terminals
