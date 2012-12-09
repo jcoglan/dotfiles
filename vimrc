@@ -10,7 +10,9 @@ set cindent
 set pastetoggle=<F2>
 
 syntax enable
+color peachpuff
 set nowrap
+set ruler
 set number
 set cursorline
 highlight LineNr term=bold cterm=NONE ctermfg=LightGrey  ctermbg=NONE
