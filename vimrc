@@ -6,7 +6,7 @@ filetype plugin indent on
 set tabstop=2 shiftwidth=2
 set expandtab
 set backspace=indent,eol,start
-set cindent
+set autoindent
 set pastetoggle=<F2>
 
 syntax enable
