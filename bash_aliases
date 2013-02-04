@@ -37,6 +37,7 @@ function get_git_branch {
 function get_nvm_version {
   echo "node-$(echo "$NVM_PATH" | cut -d"/" -f5)"
 }
+which vault > /dev/null && . "$( vault --initpath )"
 
 # Load rbenv
 if [ -s "$HOME/.rbenv/bin" ]; then
