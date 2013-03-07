@@ -9,6 +9,9 @@ set backspace=indent,eol,start
 set autoindent
 set pastetoggle=<F2>
 
+autocmd filetype make setlocal noexpandtab
+autocmd filetype python setlocal tabstop=4 shiftwidth=4
+
 syntax enable
 color peachpuff
 set nowrap
