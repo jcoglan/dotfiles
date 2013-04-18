@@ -76,5 +76,9 @@ fi
 
 export EDITOR=vim
 
+function lolbanner {
+  banner "$1" | sed "s/#/$2/g" | sed "s/ /$3/g"
+}
+
 [ -f ~/.bash_custom ] && source ~/.bash_custom
 
