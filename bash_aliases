@@ -1,5 +1,5 @@
 # Turn off beeps
-which xset >/dev/null && xset -b
+# which xset >/dev/null && xset -b
 
 alias ff-video="cp /tmp/Flash*"
 alias gr="grep -riTn --color --include"
