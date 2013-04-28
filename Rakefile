@@ -3,24 +3,31 @@ require 'find'
 
 task :default => :install
 
-KEEP = '.keep'
+NUKE = '.nuke'
+SKIP = %w[.git Rakefile tags]
 
 task :install do
-  files = Dir.entries('.') - %w[. .. .git Rakefile tags]
-  files.each do |file|
-    path = File.expand_path(file, File.dirname(__FILE__))
-    dest = File.join(ENV['HOME'], '.' + file)
-    if File.directory?(path) and File.file?(File.join(path, KEEP))
-      Find.find(file) do |subpath|
-        next if File.basename(subpath) == KEEP
-        next unless File.file?(subpath)
-        dest = File.join(ENV['HOME'], '.' + subpath)
-        FileUtils.mkdir_p(File.dirname(subpath))
-        FileUtils.cp(subpath, dest)
-      end
-    else
-      FileUtils.rm_rf dest
-      FileUtils.cp_r file, dest
+  Find.find('.') do |path|
+    Find.prune if SKIP.include?(File.basename(path))
+    Find.prune if path =~ /\.swp$/
+
+    target = File.join(ENV['HOME'], '.' + path.gsub(/^\.\//, ''))
+
+    if File.directory?(path) and File.exist?(File.join(path, NUKE))
+      FileUtils.rm_rf(target)
+      puts "rm -rf #{target}"
+
+      FileUtils.mkdir_p(File.dirname(target))
+      FileUtils.cp_r(path, target)
+      puts "cp -r #{path} #{target}"
+
+      FileUtils.rm(File.join(target, NUKE))
+      Find.prune
+
+    elsif File.file?(path)
+      FileUtils.mkdir_p(File.dirname(target))
+      FileUtils.cp(path, target)
+      puts "cp #{path} #{target}"
     end
   end
 end
