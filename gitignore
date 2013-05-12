@@ -2,6 +2,9 @@
 .goutputstream*
 .rbx
 .redcar
+*.bundle
+*.o
+*.so
 *.swn
 *.swo
 *.swp
