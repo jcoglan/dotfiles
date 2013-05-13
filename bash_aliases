@@ -16,7 +16,6 @@ alias curl-xhr="curl -H 'X-Requested-With: XMLHttpRequest'"
 alias ab-xhr="ab -H 'X-Requested-With: XMLHttpRequest'"
 
 # Ruby helpers
-alias rb="rbenv exec"
 alias be="bundle exec"
 alias gem-uninstall="gem list | cut -d' ' -f1 | xargs gem uninstall -Iax"
 
@@ -33,25 +32,17 @@ function get_git_branch {
 }
 
 # Load nvm
-[ -f ~/.nvm/nvm.sh ] && source ~/.nvm/nvm.sh
+[ -f ~/.nvm/nvm.sh ] && . ~/.nvm/nvm.sh
 function get_nvm_version {
-  echo "node-$(echo "$NVM_PATH" | cut -d"/" -f5)"
+  echo "$NVM_PATH" | cut -d"/" -f5
 }
 which vault > /dev/null && . "$( vault --initpath )"
 
-# Load rbenv
-if [ -s "$HOME/.rbenv/bin" ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
-function get_rbenv_version {
-  echo "ruby-$(rbenv version | cut -d" " -f1)"
-}
-
-# Load rvm
-[ -s "$HOME/.rvm/scripts/rvm" ] && source "$HOME/.rvm/scripts/rvm"
-function get_rvm_version {
-  echo "$GEM_HOME" | cut -d"/" -f6
+# Load chruby
+. /usr/local/share/chruby/chruby.sh
+chruby 1.9.3
+function get_chruby_version {
+  chruby | grep "*" | cut -d" " -f3
 }
 
 RED="\[\033[0;31m\]"
@@ -62,7 +53,7 @@ BLACK="\[\033[0;30m\]"
 WHITE="\[\033[0;37m\]"
 DEFAULT_COLOR="\[\033[0;39m\]"
 
-PS1="$RED$(hostname)(\$(get_nvm_version),\$(get_rbenv_version))$BLUE \w$YELLOW\$(get_git_branch)$DEFAULT_COLOR\n$ "
+PS1="$RED$(hostname)(\$(get_nvm_version),\$(get_chruby_version))$BLUE \w$YELLOW\$(get_git_branch)$DEFAULT_COLOR\n$ "
 
 # This makes Vim et al use the full color palette
 if [ "$COLORTERM" = "gnome-terminal" ]; then
@@ -80,5 +71,5 @@ function lolbanner {
   banner "$1" | sed "s/#/$2/g" | sed "s/ /$3/g"
 }
 
-[ -f ~/.bash_custom ] && source ~/.bash_custom
+[ -f ~/.bash_custom ] && . ~/.bash_custom
 
