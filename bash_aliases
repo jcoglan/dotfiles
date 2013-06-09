@@ -15,8 +15,9 @@ which pbcopy >/dev/null || {
 alias curl-xhr="curl -H 'X-Requested-With: XMLHttpRequest'"
 alias ab-xhr="ab -H 'X-Requested-With: XMLHttpRequest'"
 
-# Ruby helpers
+# Dev tool helpers
 alias be="bundle exec"
+alias ne="npm run-script"
 alias gem-uninstall="gem list | cut -d' ' -f1 | xargs gem uninstall -Iax"
 
 # Git
