@@ -9,7 +9,7 @@ set backspace=indent,eol,start
 set autoindent
 set pastetoggle=<F2>
 
-autocmd filetype markdown,text setlocal textwidth=80
+autocmd filetype haml,markdown,text setlocal textwidth=80
 autocmd filetype make setlocal noexpandtab
 autocmd filetype python setlocal tabstop=4 shiftwidth=4
 
