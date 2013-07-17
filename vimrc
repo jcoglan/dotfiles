@@ -9,6 +9,9 @@ set backspace=indent,eol,start
 set autoindent
 set pastetoggle=<F2>
 
+au BufNewFile,BufRead *.scss set filetype=css
+au BufNewFile,BufRead *.sass set filetype=css
+
 autocmd filetype haml,markdown,text setlocal textwidth=80
 autocmd filetype make setlocal noexpandtab
 autocmd filetype python setlocal tabstop=4 shiftwidth=4
