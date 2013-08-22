@@ -74,3 +74,5 @@ function lolbanner {
 
 [ -f ~/.bash_custom ] && . ~/.bash_custom
 
+fortune 2> /dev/null | cowsay 2> /dev/null
+
