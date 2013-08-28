@@ -20,6 +20,8 @@ alias be="bundle exec"
 alias ne="npm run-script"
 alias gem-uninstall="gem list | cut -d' ' -f1 | xargs gem uninstall -Iax"
 
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
 # Git
 alias gitd="git daemon --base-path=$HOME/projects --export-all"
 alias gpl="git pull --rebase && git submodule update --init --recursive"
