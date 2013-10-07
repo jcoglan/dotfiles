@@ -1,9 +1,10 @@
 .DS_Store
 .goutputstream*
-.rbx
 .redcar
 *.bundle
 *.o
+*.pyc
+*.rbx
 *.so
 *.swn
 *.swo
