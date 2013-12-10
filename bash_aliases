@@ -43,7 +43,7 @@ which vault > /dev/null && . "$( vault --initpath )"
 
 # Load chruby
 . /usr/local/share/chruby/chruby.sh
-chruby 1.9.3
+chruby 2.0.0
 function get_chruby_version {
   chruby | grep "*" | cut -d" " -f3
 }
