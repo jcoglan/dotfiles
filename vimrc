@@ -1,13 +1,20 @@
 set nocompatible
 set encoding=utf-8
-set showcmd
-filetype plugin indent on
+set directory=~/.vim/swap/
 
-set tabstop=2 shiftwidth=2
-set expandtab
-set backspace=indent,eol,start
-set autoindent
+set hlsearch incsearch ignorecase smartcase
 set pastetoggle=<F2>
+set showcmd
+
+syntax enable
+color peachpuff
+set cursorline nowrap number ruler
+highlight LineNr term=bold cterm=NONE ctermfg=LightGrey ctermbg=NONE
+
+filetype plugin indent on
+set expandtab shiftwidth=2 tabstop=2
+set autoindent
+set backspace=indent,eol,start
 
 au BufNewFile,BufRead *.scss set filetype=css
 au BufNewFile,BufRead *.sass set filetype=css
@@ -15,25 +22,4 @@ au BufNewFile,BufRead *.sass set filetype=css
 autocmd filetype haml,markdown,text setlocal textwidth=80
 autocmd filetype make setlocal noexpandtab
 autocmd filetype python setlocal tabstop=4 shiftwidth=4
-
-set directory=~/.vim/swap/
-
-syntax enable
-color peachpuff
-set nowrap
-set ruler
-set number
-set cursorline
-highlight LineNr term=bold cterm=NONE ctermfg=LightGrey  ctermbg=NONE
-
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-
-let Tlist_Ctags_Cmd = "/usr/bin/ctags"
-let Tlist_WinWidth = 40
-map <F4> :TlistToggle<CR>
-map <F8> :!ctags -R --fields=+afiklmnsS --extra=+fq . > /dev/null 2>&1<CR>
-au BufWritePost * silent ! [ -e tags ] && ctags -R --fields=+afiklmnsS --extra=+fq . > /dev/null 2>&1 &
 
