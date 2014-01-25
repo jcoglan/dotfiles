@@ -1,3 +1,18 @@
+[submodule "vim/bundle/coffee-script"]
+	path = vim/bundle/coffee-script
+	url = git://github.com/kchmck/vim-coffee-script.git
 [submodule "vim/bundle/ctrlp"]
 	path = vim/bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
+[submodule "vim/bundle/jade"]
+	path = vim/bundle/jade
+	url = git://github.com/digitaltoad/vim-jade.git
+[submodule "vim/bundle/mustache"]
+	path = vim/bundle/mustache
+	url = git://github.com/mustache/vim-mustache-handlebars.git
+[submodule "vim/bundle/javascript"]
+	path = vim/bundle/javascript
+	url = git://github.com/jelera/vim-javascript-syntax.git
+[submodule "vim/bundle/tabular"]
+	path = vim/bundle/tabular
+	url = git://github.com/godlygeek/tabular.git

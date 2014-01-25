@@ -17,10 +17,10 @@ set expandtab shiftwidth=2 tabstop=2
 set autoindent
 set backspace=indent,eol,start
 
-au BufNewFile,BufRead *.scss set filetype=css
-au BufNewFile,BufRead *.sass set filetype=css
-
 autocmd filetype haml,markdown,text setlocal textwidth=80
 autocmd filetype make setlocal noexpandtab
 autocmd filetype python setlocal tabstop=4 shiftwidth=4
+
+let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
+nnoremap <F8> :TlistToggle<CR>
 
