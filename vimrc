@@ -21,6 +21,8 @@ autocmd filetype haml,markdown,text setlocal textwidth=80
 autocmd filetype make setlocal noexpandtab
 autocmd filetype python setlocal tabstop=4 shiftwidth=4
 
+let g:mustache_abbreviations = 1
+
 let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
 nnoremap <F8> :TlistToggle<CR>
 
