@@ -1,3 +1,5 @@
+autocmd!
+
 set nocompatible
 set encoding=utf-8
 set directory=~/.vim/swap/
@@ -17,9 +19,12 @@ set expandtab shiftwidth=2 tabstop=2
 set autoindent
 set backspace=indent,eol,start
 
-autocmd filetype haml,markdown,text setlocal textwidth=80
-autocmd filetype make setlocal noexpandtab
-autocmd filetype python setlocal tabstop=4 shiftwidth=4
+au BufRead,BufNewFile *.txt set filetype=text
+au BufRead,BufNewFile *.ru set filetype=ruby
+
+au filetype haml,markdown,text setlocal textwidth=80
+au filetype make setlocal noexpandtab
+au filetype python setlocal tabstop=4 shiftwidth=4
 
 let g:mustache_abbreviations = 1
 
