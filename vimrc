@@ -15,7 +15,7 @@ set cursorline nowrap number ruler
 highlight LineNr term=bold cterm=NONE ctermfg=LightGrey ctermbg=NONE
 
 filetype plugin indent on
-set expandtab shiftwidth=2 tabstop=2
+set expandtab shiftwidth=2 softtabstop=2
 set autoindent
 set backspace=indent,eol,start
 
@@ -24,7 +24,7 @@ au BufRead,BufNewFile *.ru set filetype=ruby
 
 au filetype haml,markdown,text setlocal textwidth=80
 au filetype make setlocal noexpandtab
-au filetype python setlocal tabstop=4 shiftwidth=4
+au filetype python setlocal shiftwidth=4 softtabstop=4
 
 let g:mustache_abbreviations = 1
 
