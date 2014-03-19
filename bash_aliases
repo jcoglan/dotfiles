@@ -34,12 +34,26 @@ function get_git_branch {
   echo "["${ref#refs/heads/}"]"
 }
 
-# Load nvm
-[ -f ~/.nvm/nvm.sh ] && . ~/.nvm/nvm.sh
-function get_nvm_version {
-  echo "$NVM_PATH" | cut -d"/" -f5
+export MD5_MANIFEST=".manifest.md5"
+alias intchk="time check_file_integrity"
+function check_file_integrity {
+  if [ -e "$MD5_MANIFEST" ]; then
+    if md5sum -c "$MD5_MANIFEST"; then
+      echo "Updating file manifest ..."
+      generate_file_manifest
+    else
+      echo "Files do not match the manifest"
+    fi
+  else
+    echo "Generating new file manifest ..."
+    generate_file_manifest
+  fi
 }
-which vault > /dev/null && . "$( vault --initpath )"
+function generate_file_manifest {
+  local tmpfile="/tmp/$RANDOM.md5"
+  find . -type f -a ! -name "$MD5_MANIFEST" -print0 | xargs -0 md5sum > "$tmpfile"
+  mv "$tmpfile" "$MD5_MANIFEST"
+}
 
 # Load chruby
 . /usr/local/share/chruby/chruby.sh
@@ -47,6 +61,13 @@ chruby 2.1.0
 function get_chruby_version {
   chruby | grep "*" | cut -d" " -f3
 }
+
+# Load nvm
+[ -f ~/.nvm/nvm.sh ] && . ~/.nvm/nvm.sh
+function get_nvm_version {
+  echo "$NVM_PATH" | cut -d"/" -f5
+}
+which vault > /dev/null && . "$( vault --initpath )"
 
 RED="\[\033[0;31m\]"
 GREEN="\[\033[0;32m\]"
