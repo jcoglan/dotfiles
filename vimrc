@@ -26,6 +26,7 @@ au filetype haml,markdown,text setlocal textwidth=80
 au filetype make setlocal noexpandtab
 au filetype python setlocal shiftwidth=4 softtabstop=4
 
+let b:closetag_html_style = 1
 let g:mustache_abbreviations = 1
 
 let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
