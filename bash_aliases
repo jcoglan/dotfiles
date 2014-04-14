@@ -41,12 +41,13 @@ function intchk_generate_manifest {
   find . -type f -a ! -name "$MD5_MANIFEST" -print0 | xargs -0 md5sum -b > "$tmpfile"
   mv "$tmpfile" "$MD5_MANIFEST"
 }
-function intchk_manifest {
+function intchk_check_files_against_manifest {
   md5sum -c "$1" 2>&1 | grep FAILED
+  return "${PIPESTATUS[0]}"
 }
 function intchk_check_file_integrity {
   if [ -e "$MD5_MANIFEST" ]; then
-    if md5sum -c "$MD5_MANIFEST"; then
+    if intchk_check_files_against_manifest "$MD5_MANIFEST"; then
       echo "Updating file manifest ..."
       intchk_generate_manifest
     else
