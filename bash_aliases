@@ -35,24 +35,27 @@ function get_git_branch {
 }
 
 export MD5_MANIFEST=".manifest.md5"
-alias intchk="time check_file_integrity"
-function check_file_integrity {
+alias intchk="time intchk_check_file_integrity"
+function intchk_generate_manifest {
+  local tmpfile="/tmp/$RANDOM.md5"
+  find . -type f -a ! -name "$MD5_MANIFEST" -print0 | xargs -0 md5sum -b > "$tmpfile"
+  mv "$tmpfile" "$MD5_MANIFEST"
+}
+function intchk_manifest {
+  md5sum -c "$1" 2>&1 | grep FAILED
+}
+function intchk_check_file_integrity {
   if [ -e "$MD5_MANIFEST" ]; then
     if md5sum -c "$MD5_MANIFEST"; then
       echo "Updating file manifest ..."
-      generate_file_manifest
+      intchk_generate_manifest
     else
       echo "Files do not match the manifest"
     fi
   else
     echo "Generating new file manifest ..."
-    generate_file_manifest
+    intchk_generate_manifest
   fi
-}
-function generate_file_manifest {
-  local tmpfile="/tmp/$RANDOM.md5"
-  find . -type f -a ! -name "$MD5_MANIFEST" -print0 | xargs -0 md5sum > "$tmpfile"
-  mv "$tmpfile" "$MD5_MANIFEST"
 }
 
 # Load chruby
