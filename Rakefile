@@ -31,4 +31,3 @@ task :install do
     end
   end
 end
-

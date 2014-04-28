@@ -31,4 +31,3 @@ let g:mustache_abbreviations = 1
 
 let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
 nnoremap <F8> :TlistToggle<CR>
-

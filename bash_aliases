@@ -1,6 +1,8 @@
 # Turn off beeps
 # which xset >/dev/null && xset -b
 
+export EDITOR=vim
+
 alias ff-video="cp /tmp/Flash*"
 alias gr="grep -riTn --color --include"
 alias h="hostname"
@@ -29,46 +31,46 @@ alias gsu="git submodule update --init --recursive"
 
 # Git info in prompt
 # http://railstips.org/2009/2/2/bedazzle-your-bash-prompt-with-git-info
-function get_git_branch {
+function get-git-branch {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   echo "["${ref#refs/heads/}"]"
 }
 
 export MD5_MANIFEST=".manifest.md5"
-alias intchk="time intchk_check_file_integrity"
-function intchk_generate_manifest {
+alias intchk="time intchk-verify-files"
+function intchk-generate-manifest {
   local tmpfile="/tmp/$RANDOM.md5"
   find . -type f -a ! -name "$MD5_MANIFEST" -print0 | xargs -0 md5sum -b > "$tmpfile"
   mv "$tmpfile" "$MD5_MANIFEST"
 }
-function intchk_check_files_against_manifest {
+function intchk-check-files-against-manifest {
   md5sum -c "$1" 2>&1 | grep FAILED
   return "${PIPESTATUS[0]}"
 }
-function intchk_check_file_integrity {
+function intchk-verify-files {
   if [ -e "$MD5_MANIFEST" ]; then
-    if intchk_check_files_against_manifest "$MD5_MANIFEST"; then
+    if intchk-check-files-against-manifest "$MD5_MANIFEST"; then
       echo "Updating file manifest ..."
-      intchk_generate_manifest
+      intchk-generate-manifest
     else
       echo "Files do not match the manifest"
     fi
   else
     echo "Generating new file manifest ..."
-    intchk_generate_manifest
+    intchk-generate-manifest
   fi
 }
 
 # Load chruby
 . /usr/local/share/chruby/chruby.sh
 chruby 2.1.0
-function get_chruby_version {
+function get-chruby-version {
   chruby | grep "*" | cut -d" " -f3
 }
 
 # Load nvm
 [ -f ~/.nvm/nvm.sh ] && . ~/.nvm/nvm.sh
-function get_nvm_version {
+function get-nvm-version {
   echo "$NVM_PATH" | cut -d"/" -f5
 }
 which vault > /dev/null && . "$( vault --initpath )"
@@ -81,7 +83,7 @@ BLACK="\[\033[0;30m\]"
 WHITE="\[\033[0;37m\]"
 DEFAULT_COLOR="\[\033[0;39m\]"
 
-PS1="$RED$(hostname)(\$(get_nvm_version),\$(get_chruby_version))$BLUE \w$YELLOW\$(get_git_branch)$DEFAULT_COLOR\n$ "
+PS1="$RED$(hostname)(\$(get-nvm-version),\$(get-chruby-version))$BLUE \w$YELLOW\$(get-git-branch)$DEFAULT_COLOR\n$ "
 
 # This makes Vim et al use the full color palette
 if [ "$COLORTERM" = "gnome-terminal" ]; then
@@ -93,13 +95,16 @@ if [ "$TERM" = "screen" ]; then
   PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
 fi
 
-export EDITOR=vim
-
 function lolbanner {
   banner "$1" | sed "s/#/$2/g" | sed "s/ /$3/g"
+}
+
+function remove-trailing-lines() {
+  sed -e :a -e '/^\n*$/{$d;N;}' -e '/\n$/ba' $1 > $1.sed-tmp
+  chmod --reference $1 $1.sed-tmp
+  mv $1.sed-tmp $1
 }
 
 [ -f ~/.bash_custom ] && . ~/.bash_custom
 
 fortune 2> /dev/null | cowsay 2> /dev/null
-
