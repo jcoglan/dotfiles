@@ -37,7 +37,7 @@ function get-git-branch {
 }
 
 function mount_bitcasa {
-  mount -tbitcasa "$BITCASA_EMAIL" "$BITCASA_DIR" -o "password=$BITCASA_PASSWORD"
+  mount -tbitcasa "$BITCASA_EMAIL" "$BITCASA_DIR" -o "password=$(vault bitcasa)"
 }
 
 export MD5_MANIFEST=".manifest.md5"
