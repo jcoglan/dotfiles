@@ -17,6 +17,8 @@ which pbcopy >/dev/null || {
 alias curl-xhr="curl -H 'X-Requested-With: XMLHttpRequest'"
 alias ab-xhr="ab -H 'X-Requested-With: XMLHttpRequest'"
 
+alias osx-pip-install-env="ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future"
+
 # Dev tool helpers
 alias be="bundle exec"
 alias ne="npm run-script"
