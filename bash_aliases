@@ -69,7 +69,6 @@ function intchk-verify-files {
 
 # Load chruby
 . /usr/local/share/chruby/chruby.sh
-chruby 2.1.0
 function get-chruby-version {
   chruby | grep "*" | cut -d" " -f3
 }
