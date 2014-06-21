@@ -38,10 +38,6 @@ function get-git-branch {
   echo "["${ref#refs/heads/}"]"
 }
 
-function mount_bitcasa {
-  mount -tbitcasa "$BITCASA_EMAIL" "$BITCASA_DIR" -o "password=$(vault bitcasa)"
-}
-
 export MD5_MANIFEST=".manifest.md5"
 alias intchk="time intchk-verify-files"
 function intchk-generate-manifest {
