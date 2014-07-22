@@ -19,10 +19,11 @@ set expandtab shiftwidth=2 softtabstop=2
 set autoindent
 set backspace=indent,eol,start
 
+au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile Gemfile,*.gemspec,*.ru set filetype=ruby
 au BufRead,BufNewFile *.txt set filetype=text
-au BufRead,BufNewFile *.ru set filetype=ruby
 
-au filetype haml,markdown,text setlocal textwidth=80
+au filetype haml,markdown,text setlocal formatoptions+=t textwidth=80
 au filetype make setlocal noexpandtab
 au filetype python setlocal shiftwidth=4 softtabstop=4
 
