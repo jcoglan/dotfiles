@@ -76,13 +76,13 @@ function get-nvm-version {
 }
 which vault > /dev/null && . "$( vault --initpath )"
 
-RED="\[\033[0;31m\]"
-GREEN="\[\033[0;32m\]"
-YELLOW="\[\033[0;33m\]"
-BLUE="\[\033[1;34m\]"
-BLACK="\[\033[0;30m\]"
-WHITE="\[\033[0;37m\]"
-DEFAULT_COLOR="\[\033[0;39m\]"
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+BLUE="\033[1;34m"
+BLACK="\033[0;30m"
+WHITE="\033[0;37m"
+DEFAULT_COLOR="\033[0;39m"
 
 PS1="$RED$(hostname)(\$(get-nvm-version),\$(get-chruby-version))$BLUE \w$YELLOW\$(get-git-branch)$DEFAULT_COLOR\n$ "
 
