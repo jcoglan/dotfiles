@@ -1,0 +1,11 @@
+#!/bin/bash
+
+CHRUBY_SCRIPT="/usr/local/share/chruby/chruby.sh"
+
+if [ -f "$CHRUBY_SCRIPT" ]; then
+  . "$CHRUBY_SCRIPT"
+fi
+
+function get-chruby-version {
+  chruby | grep "*" | cut -d" " -f3
+}

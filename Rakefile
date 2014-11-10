@@ -4,7 +4,7 @@ require 'find'
 task :default => :install
 
 NUKE = '.nuke'
-SKIP = %w[.git Rakefile tags]
+SKIP = %w[.git .gitmodules Rakefile tags]
 
 task :install do
   Find.find('.') do |path|
