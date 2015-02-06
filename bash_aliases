@@ -1,3 +1,5 @@
+export PATH="$HOME/.scripts:$PATH"
+
 for script in $(ls ~/.bash); do
   . "$HOME/.bash/$script"
 done
