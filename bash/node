@@ -7,7 +7,12 @@ if [ -f "$NVM_SCRIPT" ]; then
 fi
 
 function get-nvm-version {
-  echo "$NVM_PATH" | cut -d"/" -f5
+  local version="$(echo "$NVM_PATH" | cut -d"/" -f5)"
+  if [ "$version" = "versions" ]; then
+    echo "$NVM_PATH" | cut -d"/" -f7
+  else
+    echo "$version"
+  fi
 }
 
 which vault > /dev/null && . "$( vault --initpath )"
