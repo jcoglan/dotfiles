@@ -22,3 +22,6 @@
 [submodule "vim/bundle/markdown"]
 	path = vim/bundle/markdown
 	url = git://github.com/tpope/vim-markdown.git
+[submodule "vim/bundle/css-color"]
+	path = vim/bundle/css-color
+	url = git://github.com/ap/vim-css-color.git
