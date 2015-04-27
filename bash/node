@@ -15,4 +15,13 @@ function get-nvm-version {
   fi
 }
 
+function npm-run {
+  for task in $@; do
+    npm run $task
+    if [ $? -ne 0 ]; then
+      exit 1
+    fi
+  done
+}
+
 which vault > /dev/null && . "$( vault --initpath )"
