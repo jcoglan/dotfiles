@@ -23,9 +23,9 @@ au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile Gemfile,*.gemspec,*.ru set filetype=ruby
 au BufRead,BufNewFile *.txt set filetype=text
 
-au filetype haml,markdown,text setlocal formatoptions+=t textwidth=80
+au filetype markdown,tex,text setlocal formatoptions+=t textwidth=80
 au filetype make setlocal noexpandtab
-au filetype python setlocal shiftwidth=4 softtabstop=4
+au filetype java,python setlocal shiftwidth=4 softtabstop=4
 
 let b:closetag_html_style = 1
 let g:mustache_abbreviations = 1
