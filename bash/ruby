@@ -1,5 +1,10 @@
 #!/bin/bash
 
+alias b="ruby -S bundle"
+alias bi="ruby -S bundle install --path .bundle"
+alias be="ruby -S bundle exec"
+alias gem-uninstall="gem list | cut -d' ' -f1 | xargs gem uninstall -Iax"
+
 CHRUBY_SCRIPT="/usr/local/share/chruby/chruby.sh"
 
 if [ -f "$CHRUBY_SCRIPT" ]; then
