@@ -43,3 +43,10 @@
 
 [url "git@github.com:futurelearn/"]
     insteadOf = fl:
+
+[transfer] 
+    fsckobjects = true 
+[fetch] 
+    fsckobjects = true 
+[receive] 
+    fsckObjects = true 
