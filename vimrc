@@ -20,7 +20,7 @@ set autoindent
 set backspace=indent,eol,start
 
 au BufRead,BufNewFile *.md set filetype=markdown
-au BufRead,BufNewFile Gemfile,*.gemspec,*.ru set filetype=ruby
+au BufRead,BufNewFile Berksfile,Gemfile,*.gemspec,*.ru set filetype=ruby
 au BufRead,BufNewFile *.txt set filetype=text
 
 au filetype markdown,tex,text setlocal formatoptions+=t textwidth=80
