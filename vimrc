@@ -1,5 +1,7 @@
 autocmd!
 
+set noerrorbells
+
 set nocompatible
 set encoding=utf-8
 set directory=~/.vim/swap/
