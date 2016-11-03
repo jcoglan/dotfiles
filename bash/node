@@ -2,7 +2,8 @@
 
 alias ne='npm run-script'
 
-NVM_SCRIPT="$HOME/.nvm/nvm.sh"
+export NVM_DIR="/opt/nvm"
+NVM_SCRIPT="/usr/local/opt/nvm/nvm.sh"
 
 if [ -f "$NVM_SCRIPT" ]; then
   . "$NVM_SCRIPT"
