@@ -6,7 +6,7 @@
 export EDITOR=vim
 
 alias ff-video='cp /tmp/Flash*'
-alias gr='grep -riTn --color --include'
+alias gr='grep -rin --color --include'
 alias h='hostname'
 alias pyweb='python -m SimpleHTTPServer'
 alias pyjson='python -m json.tool'
