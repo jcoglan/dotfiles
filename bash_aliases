@@ -1,7 +1,9 @@
+#!/bin/bash
+
 export PATH="$HOME/.scripts:$PATH"
 
-for script in $(ls ~/.bash); do
-  . "$HOME/.bash/$script"
+for script in $(ls ~/.shell); do
+  . "$HOME/.shell/$script"
 done
 
 if [ -f ~/.bash_custom ]; then
