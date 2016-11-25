@@ -5,6 +5,7 @@
 [alias]
     ci = commit -a
     co = checkout
+    d  = diff
     dc = diff --cached
     ds = diff --stat
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
