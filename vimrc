@@ -27,7 +27,7 @@ au BufRead,BufNewFile *.txt set filetype=text
 
 au filetype markdown,tex,text setlocal formatoptions+=t textwidth=80
 au filetype make setlocal noexpandtab
-au filetype c,java,python setlocal shiftwidth=4 softtabstop=4
+au filetype c,cpp,java,python setlocal shiftwidth=4 softtabstop=4
 
 let b:closetag_html_style = 1
 let g:mustache_abbreviations = 1
