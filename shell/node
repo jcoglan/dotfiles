@@ -10,10 +10,10 @@ if [ -f "$NVM_SCRIPT" ]; then
 fi
 
 function get-nvm-version {
-  local version="$(echo "$NVM_PATH" | cut -d / -f 4 )"
+  local version="$(echo "$NVM_BIN" | cut -d / -f 4)"
   if [ "$version" = 'versions' ]; then
     echo -n "node-"
-    echo "$NVM_PATH" | cut -d / -f 6
+    echo "$NVM_BIN" | cut -d / -f 6
   else
     echo "node-$version"
   fi
