@@ -11,10 +11,20 @@ alias h='hostname'
 alias pyweb='python -m SimpleHTTPServer'
 alias pyjson='python -m json.tool'
 
-which pbcopy >/dev/null || {
+hash pbcopy 2>/dev/null || {
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
 }
+
+hash brew 2>/dev/null && {
+  if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+    . "$(brew --prefix)/etc/bash_completion"
+  fi
+}
+
+if [ -f /usr/libexec/java_home ]; then
+  export JAVA_HOME="$(/usr/libexec/java_home)"
+fi
 
 alias curl-xhr='curl -H "X-Requested-With: XMLHttpRequest"'
 alias ab-xhr='ab -H "X-Requested-With: XMLHttpRequest"'
