@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Turn off beeps
-# which xset >/dev/null && xset -b
+# hash xset 2>/dev/null && xset -b
 
 export EDITOR=vim
 

@@ -28,4 +28,4 @@ function npm-run {
   done
 }
 
-which vault > /dev/null && . "$( vault --initpath )"
+hash vault 2> /dev/null && . "$( vault --initpath )"
