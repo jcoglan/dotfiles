@@ -29,6 +29,12 @@ au filetype markdown,tex,text setlocal formatoptions+=t textwidth=80
 au filetype make setlocal noexpandtab
 au filetype c,cpp,java,python setlocal shiftwidth=4 softtabstop=4
 
+dig \|- 8866
+imap <c-e> <c-k>(-
+imap <c-l> <c-k>l*
+ia \|- ⊢
+ia /0 ∅
+
 let b:closetag_html_style = 1
 let g:mustache_abbreviations = 1
 
