@@ -27,7 +27,7 @@ au BufRead,BufNewFile *.txt set filetype=text
 
 au filetype markdown,tex,text setlocal formatoptions+=t textwidth=80
 au filetype make setlocal noexpandtab
-au filetype c,cpp,java,python setlocal shiftwidth=4 softtabstop=4
+au filetype c,cpp,java,prolog,python setlocal shiftwidth=4 softtabstop=4
 
 dig \|- 8866
 imap <c-e> <c-k>(-
