@@ -4,18 +4,18 @@ export MD5_MANIFEST='.manifest.md5'
 
 alias intchk='time intchk-verify-files'
 
-function intchk-generate-manifest {
+intchk-generate-manifest() {
   local tmpfile="/tmp/$RANDOM.md5"
   find . -type f -a ! -name "$MD5_MANIFEST" -print0 | xargs -0 md5sum -b > "$tmpfile"
   mv "$tmpfile" "$MD5_MANIFEST"
 }
 
-function intchk-check-files-against-manifest {
+intchk-check-files-against-manifest() {
   md5sum -c "$1" 2>&1 | grep FAILED
   return "${PIPESTATUS[0]}"
 }
 
-function intchk-verify-files {
+intchk-verify-files() {
   if [ -e "$MD5_MANIFEST" ]; then
     if intchk-check-files-against-manifest "$MD5_MANIFEST"; then
       echo 'Updating file manifest ...'

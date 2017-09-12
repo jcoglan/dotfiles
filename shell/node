@@ -9,7 +9,7 @@ if [ -f "$NVM_SCRIPT" ]; then
   . "$NVM_SCRIPT"
 fi
 
-function get-nvm-version {
+get-nvm-version() {
   local version="$(echo "$NVM_BIN" | cut -d / -f 4)"
   if [ "$version" = 'versions' ]; then
     echo -n "node-"
@@ -19,7 +19,7 @@ function get-nvm-version {
   fi
 }
 
-function npm-run {
+npm-run() {
   for task in $@; do
     npm run $task
     if [ $? -ne 0 ]; then

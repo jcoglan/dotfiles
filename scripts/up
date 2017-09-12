@@ -19,20 +19,20 @@ run_command="$@ &"
 last_hash=""
 up_pid=0
 
-function up-checksum {
+up-checksum() {
   find "${monitors[@]}" -type f -exec $UP_CHECKSUM {} \; | sort | $UP_CHECKSUM
 }
 
-function up-start-process {
+up-start-process() {
   eval "$run_command"
   up_pid=$!
 }
 
-function up-stop-process {
+up-stop-process() {
   kill "$up_pid" 2> /dev/null
 }
 
-function up-sigint-handler {
+up-sigint-handler() {
   up-stop-process
   exit $?
 }

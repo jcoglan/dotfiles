@@ -11,6 +11,6 @@ if [ -f "$CHRUBY_SCRIPT" ]; then
   . "$CHRUBY_SCRIPT"
 fi
 
-function get-chruby-version {
+get-chruby-version() {
   chruby | grep '*' | cut -d ' ' -f 3
 }
