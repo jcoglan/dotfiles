@@ -6,4 +6,7 @@ IRB.conf[:USE_READLINE] = true
 IRB.conf[:PROMPT_MODE] = :SIMPLE
 
 require 'rubygems'
-require 'bundler/setup' if File.file?('Gemfile')
+
+if %w[Gemfile gems.rb].any? { |f| File.file? f }
+  require 'bundler/setup'
+end
