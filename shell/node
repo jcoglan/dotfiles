@@ -9,6 +9,8 @@ if [ -f "$NVM_SCRIPT" ]; then
   . "$NVM_SCRIPT"
 fi
 
+nvm use default
+
 get-nvm-version() {
   local version="$(echo "$NVM_BIN" | cut -d / -f 4)"
   if [ "$version" = 'versions' ]; then
