@@ -20,6 +20,7 @@ filetype plugin indent on
 set expandtab shiftwidth=2 softtabstop=2
 set autoindent
 set backspace=indent,eol,start
+set nojoinspaces
 
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile Berksfile,Gemfile,*.gemspec,*.ru set filetype=ruby
