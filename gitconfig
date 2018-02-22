@@ -22,6 +22,9 @@
     branch = auto
     interactive = auto
 
+[commit]
+    verbose = true
+
 [core]
     excludesfile = ~/.gitignore
 
