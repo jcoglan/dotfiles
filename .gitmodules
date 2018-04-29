@@ -37,3 +37,6 @@
 [submodule "vim/bundle/factor"]
 	path = vim/bundle/factor
 	url = git://github.com/brandonbloom/vim-factor.git
+[submodule "vim/bundle/elm"]
+	path = vim/bundle/elm
+	url = git://github.com/ElmCast/elm-vim.git
