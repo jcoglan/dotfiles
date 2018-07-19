@@ -40,3 +40,6 @@
 [submodule "vim/bundle/elm"]
 	path = vim/bundle/elm
 	url = git://github.com/ElmCast/elm-vim.git
+[submodule "vim/bundle/elixir"]
+	path = vim/bundle/elixir
+	url = git://github.com/elixir-editors/vim-elixir.git
