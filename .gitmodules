@@ -43,3 +43,6 @@
 [submodule "vim/bundle/elixir"]
 	path = vim/bundle/elixir
 	url = git://github.com/elixir-editors/vim-elixir.git
+[submodule "vim/bundle/idris"]
+	path = vim/bundle/idris
+	url = git://github.com/idris-hackers/idris-vim.git
