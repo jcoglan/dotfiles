@@ -16,36 +16,17 @@
 [apply]
     whitespace = strip
 
-[color]
-    diff = auto
-    status = auto
-    branch = auto
-    interactive = auto
-
 [commit]
     verbose = true
 
 [core]
     excludesfile = ~/.gitignore
 
-[diff]
-    color = auto
-    rename = copy
-
-[pager]
-    color = true
-
 [push]
-    default = tracking
+    default = upstream
 
 [rebase]
     autoStash = true
 
-[status]
-    color = auto
-
 [url "git@github.com:"]
     insteadOf = gh:
-
-[url "git@github.com:futurelearn/"]
-    insteadOf = fl:
