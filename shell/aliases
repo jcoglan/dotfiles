@@ -4,15 +4,15 @@
 # hash xset 2>/dev/null && xset -b
 
 export EDITOR=vim
+export GREP_OPTIONS='--color'
 
 alias ff-video='cp /tmp/Flash*'
-alias gr='grep -rin --color --include'
 alias h='hostname'
 alias pyweb='python -m SimpleHTTPServer'
 alias pyjson='python -m json.tool'
 
-alias deflate='ruby -r zlib -e "puts Zlib::Deflate.deflate(STDIN.read)"'
-alias inflate='ruby -r zlib -e "puts Zlib::Inflate.inflate(STDIN.read)"'
+alias deflate='ruby -r zlib -e "STDOUT.write Zlib::Deflate.deflate(STDIN.read)"'
+alias inflate='ruby -r zlib -e "STDOUT.write Zlib::Inflate.inflate(STDIN.read)"'
 
 hash pbcopy 2>/dev/null || {
   alias pbcopy='xclip -selection clipboard'
