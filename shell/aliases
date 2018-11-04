@@ -13,6 +13,7 @@ alias pyjson='python -m json.tool'
 
 alias deflate='ruby -r zlib -e "STDOUT.write Zlib::Deflate.deflate(STDIN.read)"'
 alias inflate='ruby -r zlib -e "STDOUT.write Zlib::Inflate.inflate(STDIN.read)"'
+alias sumsize='xargs stat -f "%z" | paste -sd+ - | bc'
 
 hash pbcopy 2>/dev/null || {
   alias pbcopy='xclip -selection clipboard'
