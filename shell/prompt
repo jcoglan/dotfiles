@@ -3,8 +3,8 @@
 # Git info in prompt
 # http://railstips.org/2009/2/2/bedazzle-your-bash-prompt-with-git-info
 get-git-branch() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "["${ref#refs/heads/}"]"
+  ref=$(git symbolic-ref --short HEAD 2> /dev/null) || return
+  echo "[$ref]"
 }
 
 RED='\033[0;31m'
