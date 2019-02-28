@@ -1,6 +1,9 @@
 #!/bin/bash
 
-export PATH="$HOME/.scripts:$PATH"
+scripts_path="$HOME/.scripts"
+if [[ "$PATH" != *$scripts_path* ]] ; then
+  export PATH="$scripts_path:$PATH"
+fi
 
 for script in $(ls ~/.shell); do
   . "$HOME/.shell/$script"
