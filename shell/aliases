@@ -11,9 +11,9 @@ alias h='hostname'
 alias pyweb='python -m SimpleHTTPServer'
 alias pyjson='python -m json.tool'
 
-alias deflate='ruby -r zlib -e "STDOUT.write Zlib::Deflate.deflate(STDIN.read)"'
-alias inflate='ruby -r zlib -e "STDOUT.write Zlib::Inflate.inflate(STDIN.read)"'
-alias sumsize='xargs stat -f "%z" | paste -sd+ - | bc'
+alias deflate="ruby -r zlib -e 'STDOUT.write Zlib::Deflate.deflate(STDIN.read)'"
+alias inflate="ruby -r zlib -e 'STDOUT.write Zlib::Inflate.inflate(STDIN.read)'"
+alias sumsize="xargs stat -f '%z' | paste -sd+ - | bc"
 
 hash pbcopy 2>/dev/null || {
   alias pbcopy='xclip -selection clipboard'
@@ -21,22 +21,22 @@ hash pbcopy 2>/dev/null || {
 }
 
 hash brew 2>/dev/null && {
-  if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+  if [[ -f "$(brew --prefix)/etc/bash_completion" ]] ; then
     . "$(brew --prefix)/etc/bash_completion"
   fi
 }
 
-if [ -f /usr/libexec/java_home ]; then
+if [[ -f /usr/libexec/java_home ]] ; then
   export JAVA_HOME="$(/usr/libexec/java_home)"
 fi
 
-alias curl-xhr='curl -H "X-Requested-With: XMLHttpRequest"'
-alias ab-xhr='ab -H "X-Requested-With: XMLHttpRequest"'
+alias curl-xhr="curl -H 'X-Requested-With: XMLHttpRequest'"
+alias ab-xhr="ab -H 'X-Requested-With: XMLHttpRequest'"
 
 alias osx-pip-install-env='ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future'
 
 # Chrome
-alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 self-sign() {
   local base="$1/server"

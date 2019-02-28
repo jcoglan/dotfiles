@@ -5,11 +5,9 @@ if [[ "$PATH" != *$scripts_path* ]] ; then
   export PATH="$scripts_path:$PATH"
 fi
 
-for script in $(ls ~/.shell); do
-  . "$HOME/.shell/$script"
-done
+for f in $(ls ~/.shell) ; do . "$HOME/.shell/$f" ; done
 
-if [ -f ~/.bash_custom ]; then
+if [[ -f ~/.bash_custom ]] ; then
   . ~/.bash_custom
 fi
 

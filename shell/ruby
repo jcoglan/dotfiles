@@ -7,7 +7,7 @@ alias gem-uninstall='gem list | cut -d " " -f 1 | xargs gem uninstall -Iax'
 
 CHRUBY_SCRIPT='/usr/local/share/chruby/chruby.sh'
 
-if [ -f "$CHRUBY_SCRIPT" ]; then
+if [[ -f "$CHRUBY_SCRIPT" ]] ; then
   . "$CHRUBY_SCRIPT"
 fi
 

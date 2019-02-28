@@ -2,10 +2,10 @@
 
 alias ne='npm run-script'
 
-export NVM_DIR="/opt/nvm"
-NVM_SCRIPT="/usr/local/opt/nvm/nvm.sh"
+export NVM_DIR='/opt/nvm'
+NVM_SCRIPT='/usr/local/opt/nvm/nvm.sh'
 
-if [ -f "$NVM_SCRIPT" ]; then
+if [[ -f "$NVM_SCRIPT" ]]; then
   . "$NVM_SCRIPT"
 fi
 
@@ -13,8 +13,8 @@ nvm use default
 
 get-nvm-version() {
   local version="$(echo "$NVM_BIN" | cut -d / -f 4)"
-  if [ "$version" = 'versions' ]; then
-    echo -n "node-"
+  if [[ "$version" == "versions" ]] ; then
+    echo -n 'node-'
     echo "$NVM_BIN" | cut -d / -f 6
   else
     echo "node-$version"
@@ -24,7 +24,7 @@ get-nvm-version() {
 npm-run() {
   for task in $@; do
     npm run $task
-    if [ $? -ne 0 ]; then
+    if [[ $? -ne 0 ]] ; then
       exit 1
     fi
   done

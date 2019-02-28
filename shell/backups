@@ -16,7 +16,7 @@ intchk-check-files-against-manifest() {
 }
 
 intchk-verify-files() {
-  if [ -e "$MD5_MANIFEST" ]; then
+  if [[ -e "$MD5_MANIFEST" ]] ; then
     if intchk-check-files-against-manifest "$MD5_MANIFEST"; then
       echo 'Updating file manifest ...'
       intchk-generate-manifest

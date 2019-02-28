@@ -18,11 +18,11 @@ DEFAULT_COLOR='\033[0;39m'
 PS1="$RED$(hostname)(\$(get-nvm-version),\$(get-chruby-version))$BLUE \w$YELLOW\$(get-git-branch)$DEFAULT_COLOR\n$ "
 
 # Make Vim et al use the full color palette
-if [ "$COLORTERM" = 'gnome-terminal' ]; then
+if [[ "$COLORTERM" == 'gnome-terminal' ]] ; then
   export TERM=xterm-256color
 fi
 
 # Change the window title of X terminals
-if [ "$TERM" = 'screen' ]; then
+if [[ "$TERM" == 'screen' ]] ; then
   PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
 fi
