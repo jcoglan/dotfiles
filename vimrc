@@ -38,6 +38,7 @@ ia /0 ∅
 
 let b:closetag_html_style = 1
 let g:mustache_abbreviations = 1
+let g:rustfmt_autosave = 1
 
 let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
 nnoremap <F8> :TlistToggle<CR>
