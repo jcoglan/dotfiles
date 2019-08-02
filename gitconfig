@@ -22,6 +22,9 @@
 [core]
     excludesfile = ~/.gitignore
 
+[fetch]
+    prune = true
+
 [push]
     default = upstream
 
