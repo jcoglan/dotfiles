@@ -10,6 +10,8 @@ execute pathogen#infect()
 set hlsearch incsearch ignorecase smartcase
 set pastetoggle=<F2>
 set showcmd
+set scrolloff=4
+set wildmenu
 
 syntax enable
 color peachpuff
