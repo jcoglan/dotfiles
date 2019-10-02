@@ -29,8 +29,8 @@ au BufRead,BufNewFile Berksfile,Gemfile,*.gemspec,*.ru set filetype=ruby
 au BufRead,BufNewFile *.txt set filetype=text
 
 au filetype markdown,tex,text setlocal formatoptions+=t textwidth=80
-au filetype make setlocal noexpandtab
-au filetype c,cpp,java,lua,prolog,python setlocal shiftwidth=4 softtabstop=4
+au filetype c,cpp,make setlocal noexpandtab shiftwidth=0 softtabstop=0
+au filetype java,lua,prolog,python setlocal shiftwidth=4 softtabstop=4
 
 dig \|- 8866
 imap <c-e> <c-k>(-
