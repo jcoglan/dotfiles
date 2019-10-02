@@ -8,7 +8,7 @@
     d  = diff
     dc = diff --cached
     ds = diff --stat
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    lg = log --graph --format='%C(yellow)%h%C(green)%d %C(blue)%an, %ar %C(reset)%n%w(72)%s%n'
     praise = blame
     st = status
     su = submodule update --init --recursive
