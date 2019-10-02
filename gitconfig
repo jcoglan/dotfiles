@@ -9,6 +9,7 @@
     dc = diff --cached
     ds = diff --stat
     lg = log --graph --format='%C(yellow)%h%C(green)%d %C(blue)%an, %ar %C(reset)%n%w(72)%s%n'
+    pl = pull
     praise = blame
     st = status
     su = submodule update --init --recursive
@@ -24,6 +25,9 @@
 
 [fetch]
     prune = true
+
+[pull]
+    rebase = true
 
 [push]
     default = upstream
