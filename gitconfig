@@ -13,6 +13,7 @@
     praise = blame
     st = status
     su = submodule update --init --recursive
+    summary = show -s --date=short --pretty='format:%h ("%s", %ad)'
 
 [apply]
     whitespace = strip
