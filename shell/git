@@ -1,6 +1,0 @@
-#!/bin/bash
-
-alias gd='git diff $(git describe --abbrev=0) HEAD'
-alias gitd='git daemon --base-path=$HOME/projects --export-all'
-alias gpl='git pull --rebase && git submodule update --init --recursive'
-alias gsu='git submodule update --init --recursive'
