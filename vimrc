@@ -13,6 +13,13 @@ set showcmd
 set scrolloff=4
 set wildmenu
 
+set foldmethod=indent
+" Keep all folds open when a file is opened
+augroup OpenAllFoldsOnFileOpen
+    autocmd!
+    autocmd BufRead * normal zR
+augroup END
+
 syntax enable
 color peachpuff
 set cursorline nowrap number ruler
