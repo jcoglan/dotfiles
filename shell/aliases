@@ -11,6 +11,10 @@ alias h='hostname'
 alias pyweb='python -m SimpleHTTPServer'
 alias pyjson='python -m json.tool'
 
+tm() {
+  tmux new -s "$(basename $PWD)"
+}
+
 alias deflate="ruby -r zlib -e 'STDOUT.write Zlib::Deflate.deflate(STDIN.read)'"
 alias inflate="ruby -r zlib -e 'STDOUT.write Zlib::Inflate.inflate(STDIN.read)'"
 alias sumsize="xargs stat -f '%z' | paste -sd+ - | bc"
