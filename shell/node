@@ -21,6 +21,17 @@ get-nvm-version() {
   fi
 }
 
+nvm-old-versions() {
+  nvm ls --no-alias |
+      sed 's/.*\(v[0-9]*\).*/\1/' |
+      grep '^v' |
+      sort |
+      uniq |
+      while read v ; do
+        nvm ls "$v" | sed '$ d'
+      done
+}
+
 npm-run() {
   for task in $@; do
     npm run $task
