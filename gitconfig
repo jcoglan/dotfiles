@@ -36,5 +36,13 @@
     latest  = describe --abbrev=0
     summary = show --no-patch --date=short --pretty='format:%h ("%s", %ad)'
 
+    delete-merged = ! git branch --merged \
+                    | grep -v '^\\*' \
+                    | xargs git branch --delete
+
+    delete-gone = ! git branch --verbose \
+                  | awk '$3 == \"[gone]\" { print $1 }' \
+                  | xargs git branch --delete --force
+
 [url "git@github.com:"]
     insteadOf = gh:
