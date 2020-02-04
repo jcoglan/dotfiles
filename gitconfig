@@ -2,6 +2,22 @@
     name = James Coglan
     email = jcoglan@gmail.com
 
+[core]
+    excludesfile = ~/.gitignore
+
+[apply]
+    whitespace = strip
+[commit]
+    verbose = true
+[fetch]
+    prune = true
+[pull]
+    rebase = true
+[push]
+    default = upstream
+[rebase]
+    autoStash = true
+
 [alias]
     ca = commit --all
     co = checkout
@@ -18,28 +34,7 @@
     su = submodule update --init --recursive
 
     latest  = describe --abbrev=0
-    summary = show -s --date=short --pretty='format:%h ("%s", %ad)'
-
-[apply]
-    whitespace = strip
-
-[commit]
-    verbose = true
-
-[core]
-    excludesfile = ~/.gitignore
-
-[fetch]
-    prune = true
-
-[pull]
-    rebase = true
-
-[push]
-    default = upstream
-
-[rebase]
-    autoStash = true
+    summary = show --no-patch --date=short --pretty='format:%h ("%s", %ad)'
 
 [url "git@github.com:"]
     insteadOf = gh:
