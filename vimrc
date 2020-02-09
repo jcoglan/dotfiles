@@ -5,7 +5,6 @@ set noerrorbells
 set nocompatible
 set encoding=utf-8
 set directory=~/.vim/swap/
-execute pathogen#infect()
 
 set hlsearch incsearch ignorecase smartcase
 set pastetoggle=<F2>

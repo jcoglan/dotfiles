@@ -1,51 +1,51 @@
 [submodule "vim/bundle/coffee-script"]
-	path = vim/bundle/coffee-script
+	path = vim/pack/plugins/start/coffee-script
 	url = git://github.com/kchmck/vim-coffee-script.git
 [submodule "vim/bundle/ctrlp"]
-	path = vim/bundle/ctrlp
+	path = vim/pack/plugins/start/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
 [submodule "vim/bundle/jade"]
-	path = vim/bundle/jade
+	path = vim/pack/plugins/start/jade
 	url = git://github.com/digitaltoad/vim-jade.git
 [submodule "vim/bundle/mustache"]
-	path = vim/bundle/mustache
+	path = vim/pack/plugins/start/mustache
 	url = git://github.com/mustache/vim-mustache-handlebars.git
 [submodule "vim/bundle/javascript"]
-	path = vim/bundle/javascript
+	path = vim/pack/plugins/start/javascript
 	url = git://github.com/jelera/vim-javascript-syntax.git
 [submodule "vim/bundle/tabular"]
-	path = vim/bundle/tabular
+	path = vim/pack/plugins/start/tabular
 	url = git://github.com/godlygeek/tabular.git
 [submodule "vim/bundle/closetag"]
-	path = vim/bundle/closetag
+	path = vim/pack/plugins/start/closetag
 	url = git://github.com/docunext/closetag.vim.git
 [submodule "vim/bundle/markdown"]
-	path = vim/bundle/markdown
+	path = vim/pack/plugins/start/markdown
 	url = git://github.com/tpope/vim-markdown.git
 [submodule "vim/bundle/css-color"]
-	path = vim/bundle/css-color
+	path = vim/pack/plugins/start/css-color
 	url = git://github.com/ap/vim-css-color.git
 [submodule "vim/bundle/rust"]
-	path = vim/bundle/rust
+	path = vim/pack/plugins/start/rust
 	url = git://github.com/rust-lang/rust.vim.git
 [submodule "vim/bundle/surround"]
-	path = vim/bundle/surround
+	path = vim/pack/plugins/start/surround
 	url = git://github.com/tpope/vim-surround.git
 [submodule "vim/bundle/repeat"]
-	path = vim/bundle/repeat
+	path = vim/pack/plugins/start/repeat
 	url = git://github.com/tpope/vim-repeat.git
 [submodule "vim/bundle/factor"]
-	path = vim/bundle/factor
+	path = vim/pack/plugins/start/factor
 	url = git://github.com/brandonbloom/vim-factor.git
 [submodule "vim/bundle/elm"]
-	path = vim/bundle/elm
+	path = vim/pack/plugins/start/elm
 	url = git://github.com/ElmCast/elm-vim.git
 [submodule "vim/bundle/elixir"]
-	path = vim/bundle/elixir
+	path = vim/pack/plugins/start/elixir
 	url = git://github.com/elixir-editors/vim-elixir.git
 [submodule "vim/bundle/idris"]
-	path = vim/bundle/idris
+	path = vim/pack/plugins/start/idris
 	url = git://github.com/idris-hackers/idris-vim.git
 [submodule "vim/bundle/typescript"]
-	path = vim/bundle/typescript
+	path = vim/pack/plugins/start/typescript
 	url = git://github.com/leafgarland/typescript-vim.git
