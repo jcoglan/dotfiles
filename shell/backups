@@ -30,8 +30,7 @@ chkfiles-generate-manifest() {
 }
 
 chkfiles-indexed-files() {
-  find . -name .dropbox.cache -prune \
-      -o -name .dropbox \
+  find . -name '.dropbox*' -prune \
       -o -name .DS_Store \
       -o -name Icon \
       -o -name "$MD5_MANIFEST" \
