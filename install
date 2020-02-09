@@ -1,0 +1,27 @@
+#!/bin/bash
+
+NUKE=.nuke
+SELF=$(basename "$0")
+SKIP=("$SELF" .git* tags)
+
+for file in * ; do
+  for (( i = 0; i < ${#SKIP}; i++ )) ; do
+    if [[ "$file" == "${SKIP[i]}" ]] ; then
+      continue 2
+    fi
+  done
+
+  dest=~/."$file"
+
+  if [[ -f "$file/$NUKE" ]] ; then
+    echo "$file/ -> $dest/"
+    rsync -a --delete "$file/" "$dest/"
+    rm "$dest/$NUKE"
+
+  elif [[ -d "$file" ]] ; then
+    cp -vpR "$file/" "$dest"
+
+  elif [[ -f "$file" ]] ; then
+    cp -vp "$file" "$dest"
+  fi
+done
