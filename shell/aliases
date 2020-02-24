@@ -30,6 +30,13 @@ hash brew 2>/dev/null && {
   fi
 }
 
+bru() {
+  brew update
+  brew upgrade
+  brew cask upgrade
+  brew cleanup
+}
+
 if [[ -f /usr/libexec/java_home ]] ; then
   export JAVA_HOME="$(/usr/libexec/java_home)"
 fi
