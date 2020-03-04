@@ -11,6 +11,9 @@ alias h='hostname'
 alias pyweb='python -m SimpleHTTPServer'
 alias pyjson='python -m json.tool'
 
+alias d=docker
+alias dc=docker-compose
+
 tm() {
   tmux new -s "$(basename $PWD)"
 }
