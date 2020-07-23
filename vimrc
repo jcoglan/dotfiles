@@ -30,6 +30,7 @@ set autoindent
 set backspace=indent,eol,start
 set nojoinspaces
 
+autocmd BufRead,BufNewFile *.erb set filetype=html
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile Berksfile,Gemfile,*.gemspec,*.ru set filetype=ruby
 autocmd BufRead,BufNewFile *.txt set filetype=text
