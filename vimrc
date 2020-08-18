@@ -15,8 +15,8 @@ set wildmenu
 set foldmethod=indent
 " Keep all folds open when a file is opened
 augroup OpenAllFoldsOnFileOpen
-    autocmd!
-    autocmd BufRead * normal zR
+  autocmd!
+  autocmd BufRead * normal zR
 augroup END
 
 syntax enable
@@ -51,3 +51,23 @@ let g:rustfmt_autosave = 1
 
 let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
 nnoremap <F8> :TlistToggle<CR>
+
+call plug#begin()
+  Plug 'ElmCast/elm-vim'
+  Plug 'ap/vim-css-color'
+  Plug 'brandonbloom/vim-factor'
+  Plug 'digitaltoad/vim-jade'
+  Plug 'docunext/closetag.vim'
+  Plug 'elixir-editors/vim-elixir'
+  Plug 'godlygeek/tabular'
+  Plug 'idris-hackers/idris-vim'
+  Plug 'jelera/vim-javascript-syntax'
+  Plug 'kchmck/vim-coffee-script'
+  Plug 'kien/ctrlp.vim'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'mustache/vim-mustache-handlebars'
+  Plug 'rust-lang/rust.vim'
+  Plug 'tpope/vim-markdown'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-surround'
+call plug#end()
