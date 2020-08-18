@@ -66,6 +66,7 @@ call plug#begin()
   Plug 'kien/ctrlp.vim'
   Plug 'leafgarland/typescript-vim'
   Plug 'mustache/vim-mustache-handlebars'
+  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
   Plug 'rust-lang/rust.vim'
   Plug 'tpope/vim-markdown'
   Plug 'tpope/vim-repeat'
