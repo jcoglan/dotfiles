@@ -20,7 +20,7 @@ augroup OpenAllFoldsOnFileOpen
 augroup END
 
 syntax enable
-color peachpuff
+colorscheme peachpuff
 set cursorline nowrap number ruler
 highlight LineNr term=bold cterm=NONE ctermfg=LightGrey ctermbg=NONE
 
@@ -30,20 +30,20 @@ set autoindent
 set backspace=indent,eol,start
 set nojoinspaces
 
-autocmd BufRead,BufNewFile *.erb set filetype=html
-autocmd BufRead,BufNewFile *.md set filetype=markdown
-autocmd BufRead,BufNewFile Berksfile,Gemfile,*.gemspec,*.ru set filetype=ruby
-autocmd BufRead,BufNewFile *.txt set filetype=text
+autocmd BufNewFile,BufRead *.erb set filetype=html
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead Berksfile,Gemfile,*.gemspec,*.ru set filetype=ruby
+autocmd BufNewFile,BufRead *.txt set filetype=text
 
-autocmd filetype markdown,tex,text setlocal formatoptions+=t textwidth=80
-autocmd filetype c,cpp,make setlocal noexpandtab shiftwidth=0 softtabstop=0
-autocmd filetype java,lua,prolog,python setlocal shiftwidth=4 softtabstop=4
+autocmd FileType markdown,tex,text setlocal formatoptions+=t textwidth=80
+autocmd FileType c,cpp,make setlocal noexpandtab shiftwidth=0 softtabstop=0
+autocmd FileType java,lua,prolog,python setlocal shiftwidth=4 softtabstop=4
 
-dig \|- 8866
-imap <c-e> <c-k>(-
-imap <c-l> <c-k>l*
-ia \|- ⊢
-ia /0 ∅
+digraphs \|- 8866
+iabbrev \|- ⊢
+iabbrev /0 ∅
+imap <C-e> <C-k>(-
+imap <C-l> <C-k>l*
 
 let b:closetag_html_style = 1
 let g:mustache_abbreviations = 1
