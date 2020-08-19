@@ -22,7 +22,6 @@ augroup END
 syntax enable
 colorscheme peachpuff
 set cursorline nowrap number ruler
-highlight LineNr term=bold cterm=NONE ctermfg=LightGrey ctermbg=NONE
 
 filetype plugin indent on
 set expandtab shiftwidth=2 softtabstop=2
@@ -49,11 +48,19 @@ let b:closetag_html_style = 1
 let g:mustache_abbreviations = 1
 let g:rustfmt_autosave = 1
 
+set updatetime=100
+let g:gitgutter_set_sign_backgrounds = 1
+highlight GitGutterAdd ctermfg=DarkGreen
+highlight GitGutterChange ctermfg=DarkBlue
+highlight GitGutterDelete ctermfg=DarkRed
+highlight SignColumn ctermbg=NONE
+
 let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
 nnoremap <F8> :TlistToggle<CR>
 
 call plug#begin()
   Plug 'ElmCast/elm-vim'
+  Plug 'airblade/vim-gitgutter'
   Plug 'ap/vim-css-color'
   Plug 'brandonbloom/vim-factor'
   Plug 'digitaltoad/vim-jade'
