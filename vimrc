@@ -1,62 +1,86 @@
 autocmd!
 
-set noerrorbells
-
+" misc
 set nocompatible
 set encoding=utf-8
-set directory=~/.vim/swap/
 
-set hlsearch incsearch ignorecase smartcase
-set pastetoggle=<F2>
-set showcmd
+" swap file management
+set directory=~/.vim/swap/
+set updatetime=400
+
+" interface elements
+set noerrorbells
+set cursorline
+set number
 set scrolloff=4
+set ruler
+set showcmd
 set wildmenu
 
-set foldmethod=indent
-" Keep all folds open when a file is opened
-augroup OpenAllFoldsOnFileOpen
-  autocmd!
-  autocmd BufRead * normal zR
-augroup END
+" search behaviour
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 
-syntax enable
-colorscheme peachpuff
-set cursorline nowrap number ruler
-
-filetype plugin indent on
-set expandtab shiftwidth=2 softtabstop=2
+" whitespace
 set autoindent
 set backspace=indent,eol,start
+set expandtab
+set shiftwidth=2
+set softtabstop=2
 set nojoinspaces
+set nowrap
 
+" syntax highlighting
+filetype plugin indent on
+syntax enable
+colorscheme peachpuff
+
+" fold based on indents, and unfold everything on loading files
+set foldmethod=indent
+autocmd BufRead * normal zR
+
+" set filetypes based on file extensions
 autocmd BufNewFile,BufRead *.erb set filetype=html
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufRead Berksfile,Gemfile,*.gemspec,*.ru set filetype=ruby
 autocmd BufNewFile,BufRead *.txt set filetype=text
 
+" filetype-dependent options
 autocmd FileType markdown,tex,text setlocal formatoptions+=t textwidth=80
 autocmd FileType c,cpp,make setlocal noexpandtab shiftwidth=0 softtabstop=0
 autocmd FileType java,lua,prolog,python setlocal shiftwidth=4 softtabstop=4
 
+" abbreviations
+"   |-      ⊢
+"   0/      ∅
+"   <C-e>   ∈
+"   <C-l>   λ
 digraphs \|- 8866
-iabbrev \|- ⊢
-iabbrev /0 ∅
-imap <C-e> <C-k>(-
-imap <C-l> <C-k>l*
+inoreabbrev \|- ⊢
+inoreabbrev 0/ ∅
+inoremap <C-e> <C-k>(-
+inoremap <C-l> <C-k>l*
 
-let b:closetag_html_style = 1
-let g:mustache_abbreviations = 1
-let g:rustfmt_autosave = 1
+" mappings
+set pastetoggle=<F2>
 
-set updatetime=100
+" settings: ctags
+let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
+nnoremap <F8> :TlistToggle<CR>
+
+" settings: gitgutter
 let g:gitgutter_set_sign_backgrounds = 1
 highlight GitGutterAdd ctermfg=DarkGreen
 highlight GitGutterChange ctermfg=DarkBlue
 highlight GitGutterDelete ctermfg=DarkRed
 highlight SignColumn ctermbg=NONE
 
-let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
-nnoremap <F8> :TlistToggle<CR>
+" settings: other plugins
+let b:closetag_html_style = 1
+let g:mustache_abbreviations = 1
+let g:rustfmt_autosave = 1
 
 call plug#begin()
   Plug 'ElmCast/elm-vim'
