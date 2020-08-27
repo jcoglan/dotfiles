@@ -17,11 +17,18 @@ set ruler
 set showcmd
 set wildmenu
 
+" syntax highlighting
+filetype plugin indent on
+syntax enable
+set background=dark
+colorscheme peachpuff
+
 " search behaviour
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+highlight Search ctermfg=Black
 
 " whitespace
 set autoindent
@@ -32,14 +39,10 @@ set softtabstop=2
 set nojoinspaces
 set nowrap
 
-" syntax highlighting
-filetype plugin indent on
-syntax enable
-colorscheme peachpuff
-
 " fold based on indents, and unfold everything on loading files
 set foldmethod=indent
 autocmd BufRead * normal zR
+highlight Folded ctermbg=Black
 
 " set filetypes based on file extensions
 autocmd BufNewFile,BufRead *.erb set filetype=html
