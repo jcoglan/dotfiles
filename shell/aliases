@@ -27,19 +27,6 @@ hash pbcopy 2>/dev/null || {
   alias pbpaste='xclip -selection clipboard -o'
 }
 
-hash brew 2>/dev/null && {
-  if [[ -f "$(brew --prefix)/etc/bash_completion" ]] ; then
-    . "$(brew --prefix)/etc/bash_completion"
-  fi
-}
-
-bru() {
-  brew update
-  brew upgrade
-  brew cask upgrade --greedy
-  brew cleanup
-}
-
 if [[ -f /usr/libexec/java_home ]] ; then
   export JAVA_HOME="$(/usr/libexec/java_home)"
 fi
