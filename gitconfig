@@ -50,3 +50,7 @@
 
 [url "git@github.com:"]
     insteadOf = gh:
+
+[delta]
+    number = true
+    side-by-side = true
