@@ -13,22 +13,24 @@ bru() {
   brew cleanup
 }
 
+bru-packages() {
+  { brew list ; brew list --casks ; } | sort | uniq
+}
+
+bru-dependencies() {
+  brew deps --installed | cut -d: -f2 | xargs -n1 | sort | uniq
+}
+
 bru-leaves() {
-  diff \
-    <(brew ls) \
-    <(brew deps --installed | cut -d: -f2 | xargs -n1 | sort | uniq) |
-    grep '^<' |
-    cut -c 3-
+  diff <(bru-packages) <(bru-dependencies) | grep '^<' | cut -c 3-
 }
 
 bru-check-deps() {
   while read pkg ; do
-    if ! grep -q ~/{,Dropbox/}Brewfile -e "$pkg" ; then
-      echo $pkg
-    fi
+    egrep -q "$@" -e "^(brew|cask) '$pkg'" || echo "$pkg"
   done
 }
 
 bru-check() {
-  bru-leaves | bru-check-deps
+  bru-leaves | bru-check-deps ~{,/Dropbox}/Brewfile
 }
