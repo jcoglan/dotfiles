@@ -2,6 +2,7 @@
 
 hash brew 2>/dev/null && {
   if [[ -f "$(brew --prefix)/etc/bash_completion" ]] ; then
+    # shellcheck source=/dev/null
     . "$(brew --prefix)/etc/bash_completion"
   fi
 }
@@ -26,8 +27,8 @@ bru-leaves() {
 }
 
 bru-check-deps() {
-  while read pkg ; do
-    egrep -q "$@" -e "^(brew|cask) '$pkg'" || echo "$pkg"
+  while read -r pkg ; do
+    grep -Eq "$@" -e "^(brew|cask) '$pkg'" || echo "$pkg"
   done
 }
 

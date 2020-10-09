@@ -7,15 +7,15 @@ get-git-branch() {
   echo "[$ref]"
 }
 
-RED='\e[0;31m'
-GREEN='\e[0;32m'
-YELLOW='\e[0;33m'
-BLUE='\e[1;34m'
-BLACK='\e[0;30m'
-WHITE='\e[0;37m'
-DEFAULT_COLOR='\e[0;39m'
+export COL_RED='\e[0;31m'
+export COL_GREEN='\e[0;32m'
+export COL_YELLOW='\e[0;33m'
+export COL_BLUE='\e[1;34m'
+export COL_BLACK='\e[0;30m'
+export COL_WHITE='\e[0;37m'
+export COL_DEFAULT='\e[0;39m'
 
-PS1="$RED(\$(get-nvm-version),\$(get-chruby-version)) $BLUE\w $YELLOW\$(get-git-branch) $DEFAULT_COLOR\n$ "
+PS1="$COL_RED(\$(get-nvm-version),\$(get-chruby-version)) $COL_BLUE\w $COL_YELLOW\$(get-git-branch) $COL_DEFAULT\n$ "
 
 # Make Vim et al use the full color palette
 if [[ "$COLORTERM" == 'gnome-terminal' ]] ; then

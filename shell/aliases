@@ -15,7 +15,7 @@ alias d=docker
 alias dc=docker-compose
 
 tm() {
-  tmux new -s "$(basename $PWD)"
+  tmux new -s "$(basename "$PWD")"
 }
 
 alias deflate="ruby -r zlib -e 'STDOUT.write Zlib::Deflate.deflate(STDIN.read)'"
@@ -28,7 +28,8 @@ hash pbcopy 2>/dev/null || {
 }
 
 if [[ -f /usr/libexec/java_home ]] ; then
-  export JAVA_HOME="$(/usr/libexec/java_home)"
+  JAVA_HOME="$(/usr/libexec/java_home)"
+  export JAVA_HOME
 fi
 
 alias curl-xhr="curl -H 'X-Requested-With: XMLHttpRequest'"

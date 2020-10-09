@@ -5,14 +5,17 @@ alias ne='npm run-script'
 export NVM_DIR='/opt/nvm'
 NVM_SCRIPT='/usr/local/opt/nvm/nvm.sh'
 
-if [[ -f "$NVM_SCRIPT" ]]; then
+if [[ -f "$NVM_SCRIPT" ]] ; then
+  # shellcheck source=/dev/null
   . "$NVM_SCRIPT"
 fi
 
 nvm use default
 
 get-nvm-version() {
-  local version="$(echo "$NVM_BIN" | cut -d / -f 4)"
+  local version
+  version="$(echo "$NVM_BIN" | cut -d / -f 4)"
+
   if [[ "$version" == "versions" ]] ; then
     echo -n 'node-'
     echo "$NVM_BIN" | cut -d / -f 6
@@ -27,18 +30,16 @@ nvm-old-versions() {
       grep '^v' |
       sort |
       uniq |
-      while read v ; do
-        nvm ls "$v" | sed '$ d'
-      done
+      while read -r v ; do nvm ls "$v" | sed '$ d' ; done
 }
 
 npm-run() {
-  for task in $@; do
-    npm run $task
-    if [[ $? -ne 0 ]] ; then
+  for task in "$@" ; do
+    if ! npm run "$task" ; then
       exit 1
     fi
   done
 }
 
+# shellcheck source=/dev/null
 hash vault 2> /dev/null && . "$( vault --initpath )"

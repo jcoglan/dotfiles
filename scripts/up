@@ -15,7 +15,7 @@ while [ "$1" != "--" ]; do
 done
 
 shift
-run_command="$@ &"
+run_command="$*"
 last_hash=""
 up_pid=0
 
@@ -24,7 +24,7 @@ up-checksum() {
 }
 
 up-start-process() {
-  eval "$run_command"
+  eval "$run_command &"
   up_pid=$!
 }
 
