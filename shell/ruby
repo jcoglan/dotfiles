@@ -14,3 +14,9 @@ fi
 get-chruby-version() {
   chruby | grep '\*' | cut -d ' ' -f 3
 }
+
+ruby-install-with-openssl-1-0() {
+  sudo ruby-install \
+      -r /opt/rubies "$@" -- \
+      --with-openssl-dir="$(brew --prefix openssl@1.0)"
+}
