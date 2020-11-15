@@ -9,8 +9,7 @@ hash brew 2>/dev/null && {
 
 bru() {
   brew update
-  brew upgrade
-  brew cask upgrade --greedy
+  brew upgrade --greedy
   brew cleanup
 }
 
