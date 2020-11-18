@@ -14,7 +14,7 @@ bru() {
 }
 
 bru-packages() {
-  { brew list ; brew list --casks ; } | sort | uniq
+  { brew list --formula ; brew list --casks ; } | sort | uniq
 }
 
 bru-dependencies() {
