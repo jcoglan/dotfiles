@@ -43,7 +43,7 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 self-sign() {
   local base="$1/server"
   mkdir -p "$1"
-  openssl genrsa -des3 -out "$base.key" 1024
+  openssl genrsa -out "$base.key" 2048
   openssl req -new -key "$base.key" -out "$base.csr"
   cp "$base.key" "$base.key.org"
   openssl rsa -in "$base.key.org" -out "$base.key"
