@@ -29,7 +29,7 @@ elif [[ -n "$ZSH_VERSION" ]] ; then
   export PS_LF=$'\n'
 fi
 
-PS1="${PS_RED}(\$(get-nvm-version),\$(get-chruby-version)) ${PS_BLUE}${PS_PWD} ${PS_YELLOW}\$(get-git-branch)${PS_LF}${PS_DEFAULT}$ "
+PS1="${PS_RED}(\$(get-nvm-version),\$(get-chruby-version)) ${PS_BLUE}${PS_PWD} ${PS_YELLOW}\$(get-git-branch)${PS_DEFAULT}${PS_LF}$ "
 
 # Make Vim et al use the full color palette
 if [[ "$COLORTERM" == 'gnome-terminal' ]] ; then
