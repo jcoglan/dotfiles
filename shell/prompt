@@ -18,18 +18,18 @@ if [[ -n "$BASH_VERSION" ]] ; then
   export PS_PWD='\w'
   export PS_LF='\n'
 elif [[ -n "$ZSH_VERSION" ]] ; then
-  export PS_BLACK='%F{black}'
-  export PS_RED='%F{red}'
-  export PS_GREEN='%F{green}'
-  export PS_YELLOW='%F{yellow}'
-  export PS_BLUE='%F{blue}'
-  export PS_WHITE='%F{white}'
+  export PS_BLACK='%F{black}%b'
+  export PS_RED='%F{red}%b'
+  export PS_GREEN='%F{green}%b'
+  export PS_YELLOW='%F{yellow}%b'
+  export PS_BLUE='%F{blue}%B'
+  export PS_WHITE='%F{white}%b'
   export PS_DEFAULT='%f'
   export PS_PWD='%~'
   export PS_LF=$'\n'
 fi
 
-PS1="${PS_RED}(\$(get-nvm-version),\$(get-chruby-version)) ${PS_BLUE}%B${PS_PWD}%b ${PS_YELLOW}\$(get-git-branch)${PS_LF}${PS_DEFAULT}$ "
+PS1="${PS_RED}(\$(get-nvm-version),\$(get-chruby-version)) ${PS_BLUE}${PS_PWD} ${PS_YELLOW}\$(get-git-branch)${PS_LF}${PS_DEFAULT}$ "
 
 # Make Vim et al use the full color palette
 if [[ "$COLORTERM" == 'gnome-terminal' ]] ; then
