@@ -1,39 +1,76 @@
 #!/bin/bash
 
-export MD5_MANIFEST=".manifest.md5"
-export SHA_MANIFEST=".shasum.txt"
+CHKFILES_MD5_MANIFEST=".manifest.md5"
+CHKFILES_SHA_MANIFEST=".shasum.txt"
 
-alias chkfiles="time chkfiles-verify-files"
+alias chkfiles="time chkfiles-verify"
 
-chkfiles-verify-files() {
-  if [[ -e "$SHA_MANIFEST" ]] ; then
-    if chkfiles-check-files "$SHA_MANIFEST" ; then
-      echo "Updating file manifest ..."
-      chkfiles-generate-manifest
+chkfiles-verify() {
+  if [[ -e "$CHKFILES_SHA_MANIFEST" ]] ; then
+    echo "--> checking manifest ..."
+    if chkfiles-check ; then
+      echo "--> updating manifest ..."
+      chkfiles-update-manifest
     else
-      echo "Files do not match the manifest"
+      echo "==> files do not match the manifest"
     fi
   else
-    echo "Generating new file manifest ..."
+    echo "--> generating new manifest ..."
     chkfiles-generate-manifest
   fi
 }
 
-chkfiles-check-files() {
-  shasum -qc "$1"
+chkfiles-check() {
+  local manifest="${1:-$CHKFILES_SHA_MANIFEST}"
+
+  if [[ "$(uname -s)" == Darwin ]] ; then
+    shasum -qc "$manifest"
+  else
+    shasum -c "$manifest" | egrep -v ': OK$'
+    [[ "${PIPESTATUS[0]}" -eq 0 ]]
+  fi
 }
 
 chkfiles-generate-manifest() {
   local tmpfile="/tmp/shasum-$RANDOM.txt"
-  chkfiles-indexed-files | xargs -0 shasum -b > "$tmpfile"
-  mv "$tmpfile" "$SHA_MANIFEST"
+  chkfiles-indexable | sort | chkfiles-write-manifest "$tmpfile"
+  mv "$tmpfile" "$CHKFILES_SHA_MANIFEST"
 }
 
-chkfiles-indexed-files() {
+chkfiles-update-manifest() {
+  chkfiles-unindexed | chkfiles-write-manifest "$CHKFILES_SHA_MANIFEST"
+}
+
+chkfiles-write-manifest() {
+  local target="$1"
+
+  while read -r filename ; do
+    shasum -b "$filename" >> "$target"
+  done
+}
+
+chkfiles-indexable() {
   find . -name '.dropbox*' -prune \
-      -o -name .DS_Store \
-      -o -name Icon \
-      -o -name "$MD5_MANIFEST" \
-      -o -name "$SHA_MANIFEST" \
-      -o -type f -print0
+      -o -name '.DS_Store' \
+      -o -name 'Icon?' \
+      -o -name "$CHKFILES_MD5_MANIFEST" \
+      -o -name "$CHKFILES_SHA_MANIFEST" \
+      -o -type f -print
+}
+
+chkfiles-indexed() {
+  cut -c 43- "$CHKFILES_SHA_MANIFEST" 2> /dev/null
+}
+
+chkfiles-diff() {
+  local str="^$1 "
+  diff <(chkfiles-indexed | sort) <(chkfiles-indexable | sort) | egrep "$str" | cut -c 3-
+}
+
+chkfiles-missing() {
+  chkfiles-diff '<'
+}
+
+chkfiles-unindexed() {
+  chkfiles-diff '>'
 }
