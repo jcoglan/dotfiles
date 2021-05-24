@@ -4,7 +4,7 @@
 # hash xset 2>/dev/null && xset -b
 
 export EDITOR=vim
-export GREP_OPTIONS='--color'
+[[ "$(uname -s)" == Darwin ]] && export GREP_OPTIONS='--color'
 
 alias ff-video='cp /tmp/Flash*'
 alias h='hostname'
