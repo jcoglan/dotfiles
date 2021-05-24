@@ -8,25 +8,25 @@ get-git-branch() {
 }
 
 if [[ -n "$BASH_VERSION" ]] ; then
-  export PS_BLACK='\e[0;30m'
-  export PS_RED='\e[0;31m'
-  export PS_GREEN='\e[0;32m'
-  export PS_YELLOW='\e[0;33m'
-  export PS_BLUE='\e[1;34m'
-  export PS_WHITE='\e[0;37m'
-  export PS_DEFAULT='\e[0;39m'
-  export PS_PWD='\w'
-  export PS_LF='\n'
+  PS_BLACK='\e[0;30m'
+  PS_RED='\e[0;31m'
+  PS_GREEN='\e[0;32m'
+  PS_YELLOW='\e[0;33m'
+  PS_BLUE='\e[1;34m'
+  PS_WHITE='\e[0;37m'
+  PS_DEFAULT='\e[0;39m'
+  PS_PWD='\w'
+  PS_LF='\n'
 elif [[ -n "$ZSH_VERSION" ]] ; then
-  export PS_BLACK='%F{black}%b'
-  export PS_RED='%F{red}%b'
-  export PS_GREEN='%F{green}%b'
-  export PS_YELLOW='%F{yellow}%b'
-  export PS_BLUE='%F{blue}%B'
-  export PS_WHITE='%F{white}%b'
-  export PS_DEFAULT='%f'
-  export PS_PWD='%~'
-  export PS_LF=$'\n'
+  PS_BLACK='%F{black}%b'
+  PS_RED='%F{red}%b'
+  PS_GREEN='%F{green}%b'
+  PS_YELLOW='%F{yellow}%b'
+  PS_BLUE='%F{blue}%B'
+  PS_WHITE='%F{white}%b'
+  PS_DEFAULT='%f'
+  PS_PWD='%~'
+  PS_LF=$'\n'
 fi
 
 PS1="${PS_RED}(\$(get-nvm-version),\$(get-chruby-version)) ${PS_BLUE}${PS_PWD} ${PS_YELLOW}\$(get-git-branch)${PS_DEFAULT}${PS_LF}$ "
