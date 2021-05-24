@@ -27,12 +27,12 @@ bru-dependencies() {
 }
 
 bru-leaves() {
-  diff <(bru-packages) <(bru-dependencies) | grep '^<' | cut -c 3-
+  diff <(bru-packages) <(bru-dependencies) | egrep '^<' | cut -c 3-
 }
 
 bru-check-deps() {
   while read -r pkg ; do
-    grep -Eq "$@" -e "^(brew|cask) '$pkg'" || echo "$pkg"
+    egrep -q "$@" -e "^(brew|cask) '$pkg'" || echo "$pkg"
   done
 }
 

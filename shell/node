@@ -27,7 +27,7 @@ get-nvm-version() {
 nvm-old-versions() {
   nvm ls --no-alias |
       sed 's/.*\(v[0-9]*\).*/\1/' |
-      grep '^v' |
+      egrep '^v' |
       sort |
       uniq |
       while read -r v ; do nvm ls "$v" | sed '$ d' ; done

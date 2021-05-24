@@ -12,7 +12,7 @@ if [[ -f "$CHRUBY_SCRIPT" ]] ; then
 fi
 
 get-chruby-version() {
-  chruby | grep '\*' | cut -d ' ' -f 3
+  chruby | egrep '\*' | cut -d ' ' -f 3
 }
 
 ruby-install-with-openssl-1-0() {

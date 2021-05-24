@@ -38,7 +38,7 @@ alias ab-xhr="ab -H 'X-Requested-With: XMLHttpRequest'"
 alias osx-pip-install-env='ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future'
 
 # Chrome
-alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+alias chromekill="ps ux | egrep '[C]hrome Helper --type=renderer' | egrep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 self-sign() {
   local base="$1/server"
