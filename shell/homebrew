@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if type brew >/dev/null ; then
+if type brew >/dev/null 2>&1 ; then
   if [[ -n "$BASH_VERSION" && -f "$(brew --prefix)/etc/bash_completion" ]] ; then
     # shellcheck source=/dev/null
     . "$(brew --prefix)/etc/bash_completion"
