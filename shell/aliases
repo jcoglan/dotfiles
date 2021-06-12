@@ -27,6 +27,13 @@ hash pbcopy 2>/dev/null || {
   alias pbpaste='xclip -selection clipboard -o'
 }
 
+git-remote-url() {
+  git config remote.origin.url |
+      sed -E 's/^[a-z]+@/https:\/\//' |
+      sed -E 's/^(https?:.*):/\1\//' |
+      sed -E 's/\.git$//'
+}
+
 if [[ -f /usr/libexec/java_home ]] ; then
   JAVA_HOME="$(/usr/libexec/java_home)"
   export JAVA_HOME
