@@ -3,12 +3,18 @@
 alias ne='npm run-script'
 
 export NVM_DIR='/opt/nvm'
-NVM_SCRIPT='/usr/local/opt/nvm/nvm.sh'
 
-if [[ -f "$NVM_SCRIPT" ]] ; then
-  # shellcheck source=/dev/null
-  . "$NVM_SCRIPT"
-fi
+NVM_SCRIPTS=(
+  /opt/homebrew/opt/nvm/nvm.sh
+  /usr/local/opt/nvm/nvm.sh
+)
+
+for script in "${NVM_SCRIPTS[@]}" ; do
+  if [[ -f "$script" ]] ; then
+    # shellcheck source=/dev/null
+    . "$script"
+  fi
+done
 
 nvm use default
 

@@ -4,12 +4,17 @@ alias bi='ruby -S bundle config set path .bundle && ruby -S bundle install'
 alias be='ruby -S bundle exec'
 alias gem-uninstall='gem list | cut -d " " -f 1 | xargs gem uninstall -Iax'
 
-CHRUBY_SCRIPT='/usr/local/share/chruby/chruby.sh'
+CHRUBY_SCRIPTS=(
+  /opt/homebrew/share/chruby/chruby.sh
+  /usr/local/share/chruby/chruby.sh
+)
 
-if [[ -f "$CHRUBY_SCRIPT" ]] ; then
-  # shellcheck source=/dev/null
-  . "$CHRUBY_SCRIPT"
-fi
+for script in "${CHRUBY_SCRIPTS[@]}" ; do
+  if [[ -f "$script" ]] ; then
+    # shellcheck source=/dev/null
+    . "$script"
+  fi
+done
 
 get-chruby-version() {
   chruby | egrep '\*' | cut -d ' ' -f 3
