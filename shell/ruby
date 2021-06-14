@@ -17,7 +17,7 @@ for script in "${CHRUBY_SCRIPTS[@]}" ; do
 done
 
 get-chruby-version() {
-  chruby | egrep '\*' | cut -d ' ' -f 3
+  chruby | grep -E '\*' | cut -d ' ' -f 3
 }
 
 ruby-install-with-openssl-1-0() {

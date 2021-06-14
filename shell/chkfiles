@@ -26,7 +26,7 @@ chkfiles-check() {
   if [[ "$(uname -s)" == Darwin ]] ; then
     shasum -qc "$manifest"
   else
-    shasum -c "$manifest" | egrep -v ': OK$'
+    shasum -c "$manifest" | grep -Ev ': OK$'
     [[ "${PIPESTATUS[0]}" -eq 0 ]]
   fi
 }
@@ -60,7 +60,7 @@ chkfiles-diff() {
   local str="^$1 "
 
   diff <(chkfiles-indexed | sort) <(chkfiles-indexable | tr '\0' '\n' | sort) |
-    egrep "$str" |
+    grep -E "$str" |
     cut -c 3-
 }
 
