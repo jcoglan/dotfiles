@@ -1,5 +1,16 @@
 #!/bin/bash
 
+add-to-path() {
+  local dir="$1"
+
+  PATH=":$PATH:"
+  PATH="${PATH//:$dir:/:}"
+  PATH="${PATH#:}"
+  PATH="${PATH%:}"
+
+  PATH="$dir:$PATH"
+}
+
 follow-redirect() {
   curl -i "$1" 2>/dev/null | grep -Ei '^location: ' | cut -d ' ' -f 2
 }
