@@ -14,10 +14,6 @@ alias pyjson='python -m json.tool'
 alias d=docker
 alias dc=docker-compose
 
-tm() {
-  tmux new -s "$(basename "$PWD")"
-}
-
 alias deflate="ruby -r zlib -e 'STDOUT.write Zlib::Deflate.deflate(STDIN.read)'"
 alias inflate="ruby -r zlib -e 'STDOUT.write Zlib::Inflate.inflate(STDIN.read)'"
 alias sumsize="xargs stat -f '%z' | paste -sd+ - | bc"
@@ -25,13 +21,6 @@ alias sumsize="xargs stat -f '%z' | paste -sd+ - | bc"
 hash pbcopy 2>/dev/null || {
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
-}
-
-git-remote-url() {
-  git config remote.origin.url |
-      sed -E 's/^[a-z]+@/https:\/\//' |
-      sed -E 's/^(https?:.*):/\1\//' |
-      sed -E 's/\.git$//'
 }
 
 if [[ -f /usr/libexec/java_home ]] ; then
@@ -46,14 +35,3 @@ alias osx-pip-install-env='ARCHFLAGS=-Wno-error=unused-command-line-argument-har
 
 # Chrome
 alias chromekill="ps ux | grep -E '[C]hrome Helper --type=renderer' | grep -Ev extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
-
-self-sign() {
-  local base="$1/server"
-  mkdir -p "$1"
-  openssl genrsa -out "$base.key" 2048
-  openssl req -new -key "$base.key" -out "$base.csr"
-  cp "$base.key" "$base.key.org"
-  openssl rsa -in "$base.key.org" -out "$base.key"
-  openssl x509 -req -days 365 -in "$base.csr" -signkey "$base.key" -out "$base.crt"
-  rm "$base.csr" "$base.key.org"
-}

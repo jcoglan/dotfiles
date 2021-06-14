@@ -1,15 +1,37 @@
 #!/bin/bash
 
-lolbanner() {
-  banner "$1" | sed "s/#/$2/g" | sed "s/ /$3/g"
-}
-
 follow-redirect() {
   curl -i "$1" 2>/dev/null | grep -Ei '^location: ' | cut -d ' ' -f 2
+}
+
+git-remote-url() {
+  git config remote.origin.url |
+      sed -E 's/^[a-z]+@/https:\/\//' |
+      sed -E 's/^(https?:.*):/\1\//' |
+      sed -E 's/\.git$//'
+}
+
+lolbanner() {
+  banner "$1" | sed "s/#/$2/g" | sed "s/ /$3/g"
 }
 
 remove-trailing-lines() {
   sed -e :a -e '/^\n*$/{$d;N;}' -e '/\n$/ba' "$1" > "$1.sed-tmp"
   chmod --reference "$1" "$1.sed-tmp"
   mv "$1.sed-tmp" "$1"
+}
+
+self-sign() {
+  local base="$1/server"
+  mkdir -p "$1"
+  openssl genrsa -out "$base.key" 2048
+  openssl req -new -key "$base.key" -out "$base.csr"
+  cp "$base.key" "$base.key.org"
+  openssl rsa -in "$base.key.org" -out "$base.key"
+  openssl x509 -req -days 365 -in "$base.csr" -signkey "$base.key" -out "$base.crt"
+  rm "$base.csr" "$base.key.org"
+}
+
+tm() {
+  tmux new -s "$(basename "$PWD")"
 }
