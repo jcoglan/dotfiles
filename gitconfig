@@ -28,7 +28,7 @@
     d  = diff
     dc = diff --cached
     ds = diff --stat
-    f  = fetch
+    f  = fetch --all
     lg = log --graph --format='%C(yellow)%h%C(green)%d %C(blue)%an, %ar %C(reset)%n%w(72)%s%n'
     pl = pull
     ru = remote update
