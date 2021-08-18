@@ -47,7 +47,7 @@ highlight Folded ctermbg=Black
 " set filetypes based on file extensions
 autocmd BufNewFile,BufRead *.erb set filetype=html
 autocmd BufNewFile,BufRead *.md set filetype=markdown
-autocmd BufNewFile,BufRead Berksfile,Gemfile,*.gemspec,*.ru set filetype=ruby
+autocmd BufNewFile,BufRead Berksfile,Brewfile,Gemfile,*.gemspec,*.ru set filetype=ruby
 autocmd BufNewFile,BufRead *.txt set filetype=text
 
 " filetype-dependent options
