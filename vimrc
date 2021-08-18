@@ -53,7 +53,7 @@ autocmd BufNewFile,BufRead *.txt set filetype=text
 " filetype-dependent options
 autocmd FileType markdown,tex,text setlocal formatoptions+=t textwidth=80
 autocmd FileType c,cpp,make setlocal noexpandtab shiftwidth=0 softtabstop=0
-autocmd FileType java,prolog,python setlocal shiftwidth=4 softtabstop=4
+autocmd FileType erlang,java,prolog,python setlocal shiftwidth=4 softtabstop=4
 
 " abbreviations
 "   |-      ⊢
