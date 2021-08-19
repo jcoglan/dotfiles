@@ -105,4 +105,5 @@ call plug#begin()
   Plug 'tpope/vim-markdown'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
+  Plug 'vim-erlang/vim-erlang-runtime'
 call plug#end()
