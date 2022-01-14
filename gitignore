@@ -3,6 +3,7 @@
 .redcar
 .vagrant
 .venv
+*.beam
 *.bundle
 *.o
 *.pyc
