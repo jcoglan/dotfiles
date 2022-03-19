@@ -1,13 +1,14 @@
 #!/bin/bash
 
-scripts_path="$HOME/.scripts"
-if [[ "$PATH" != *$scripts_path* ]] ; then
-  export PATH="$scripts_path:$PATH"
-fi
+for file in ~/.shell/* ; do
+  # shellcheck source=/dev/null
+  . "$file"
+done
 
-for file in ~/.shell/* ; do . "$file" ; done
+add-to-path "$HOME/.scripts"
 
 if [[ -f ~/.bash_custom ]] ; then
+  # shellcheck source=/dev/null
   . ~/.bash_custom
 fi
 
