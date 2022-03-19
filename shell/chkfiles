@@ -1,26 +1,26 @@
 #!/bin/bash
 
-CHKFILES_MD5_MANIFEST=".manifest.md5"
-CHKFILES_SHA_MANIFEST=".shasum.txt"
+CHKFILES_MD5_MANIFEST='.manifest.md5'
+CHKFILES_SHA_MANIFEST='.shasum.txt'
 
-alias chkfiles="time chkfiles-verify"
+alias chkfiles='time chkfiles-verify'
 
-chkfiles-verify() {
+chkfiles-verify () {
   if [[ -e "$CHKFILES_SHA_MANIFEST" ]] ; then
-    echo "--> checking manifest ..."
-    if chkfiles-check ; then
-      echo "--> updating manifest ..."
+    echo '--> checking manifest ...'
+    if chkfiles-check "$@" ; then
+      echo '--> updating manifest ...'
       chkfiles-update-manifest
     else
-      echo "==> files do not match the manifest"
+      echo '==> files do not match the manifest'
     fi
   else
-    echo "--> generating new manifest ..."
+    echo '--> generating new manifest ...'
     chkfiles-generate-manifest
   fi
 }
 
-chkfiles-check() {
+chkfiles-check () {
   local manifest="${1:-$CHKFILES_SHA_MANIFEST}"
 
   if [[ "$(uname -s)" == Darwin ]] ; then
@@ -31,19 +31,19 @@ chkfiles-check() {
   fi
 }
 
-chkfiles-generate-manifest() {
+chkfiles-generate-manifest () {
   local tmpfile="/tmp/shasum-$RANDOM.txt"
   chkfiles-indexable | xargs -0 shasum -b > "$tmpfile"
   mv "$tmpfile" "$CHKFILES_SHA_MANIFEST"
 }
 
-chkfiles-update-manifest() {
+chkfiles-update-manifest () {
   chkfiles-unindexed | while read -r filename ; do
     shasum -b "$filename" >> "$CHKFILES_SHA_MANIFEST"
   done
 }
 
-chkfiles-indexable() {
+chkfiles-indexable () {
   find . -name '.dropbox*' -prune \
       -o -name '.DS_Store' \
       -o -name 'Icon?' \
@@ -52,11 +52,11 @@ chkfiles-indexable() {
       -o -type f -print0
 }
 
-chkfiles-indexed() {
+chkfiles-indexed () {
   cut -c 43- "$CHKFILES_SHA_MANIFEST" 2> /dev/null
 }
 
-chkfiles-diff() {
+chkfiles-diff () {
   local str="^$1 "
 
   diff <(chkfiles-indexed | sort) <(chkfiles-indexable | tr '\0' '\n' | sort) |
@@ -64,10 +64,10 @@ chkfiles-diff() {
     cut -c 3-
 }
 
-chkfiles-missing() {
+chkfiles-missing () {
   chkfiles-diff '<'
 }
 
-chkfiles-unindexed() {
+chkfiles-unindexed () {
   chkfiles-diff '>'
 }

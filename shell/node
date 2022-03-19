@@ -19,11 +19,11 @@ done
 
 nvm use default
 
-get-nvm-version() {
+get-nvm-version () {
   local version
   version="$(echo "$NVM_BIN" | cut -d / -f 4)"
 
-  if [[ "$version" == "versions" ]] ; then
+  if [[ "$version" == versions ]] ; then
     echo -n 'node-'
     echo "$NVM_BIN" | cut -d / -f 6
   else
@@ -31,7 +31,7 @@ get-nvm-version() {
   fi
 }
 
-nvm-old-versions() {
+nvm-old-versions () {
   nvm ls --no-alias |
       sed 's/.*\(v[0-9]*\).*/\1/' |
       grep -E '^v' |
@@ -40,7 +40,7 @@ nvm-old-versions() {
       while read -r v ; do nvm ls "$v" | sed '$ d' ; done
 }
 
-npm-run() {
+npm-run () {
   for task in "$@" ; do
     if ! npm run "$task" ; then
       exit 1

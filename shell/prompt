@@ -2,11 +2,12 @@
 
 # Git info in prompt
 # http://railstips.org/2009/2/2/bedazzle-your-bash-prompt-with-git-info
-get-git-branch() {
+get-git-branch () {
   ref=$(git symbolic-ref --short HEAD 2> /dev/null) || return
   echo "[$ref]"
 }
 
+# shellcheck disable=SC2034
 if [[ -n "$BASH_VERSION" ]] ; then
   PS_BLACK='\e[0;30m'
   PS_RED='\e[0;31m'

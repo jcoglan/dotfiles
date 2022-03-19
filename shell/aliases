@@ -14,9 +14,9 @@ alias pyjson='python -m json.tool'
 alias d=docker
 alias dc=docker-compose
 
-alias deflate="ruby -r zlib -e 'STDOUT.write Zlib::Deflate.deflate(STDIN.read)'"
-alias inflate="ruby -r zlib -e 'STDOUT.write Zlib::Inflate.inflate(STDIN.read)'"
-alias sumsize="xargs stat -f '%z' | paste -sd+ - | bc"
+alias deflate='ruby -r zlib -e "STDOUT.write Zlib::Deflate.deflate(STDIN.read)"'
+alias inflate='ruby -r zlib -e "STDOUT.write Zlib::Inflate.inflate(STDIN.read)"'
+alias sumsize='xargs stat -f "%z" | paste -sd+ - | bc'
 
 hash pbcopy 2>/dev/null || {
   alias pbcopy='xclip -selection clipboard'
@@ -28,10 +28,7 @@ if [[ -f /usr/libexec/java_home ]] ; then
   export JAVA_HOME
 fi
 
-alias curl-xhr="curl -H 'X-Requested-With: XMLHttpRequest'"
-alias ab-xhr="ab -H 'X-Requested-With: XMLHttpRequest'"
+alias curl-xhr='curl -H "X-Requested-With: XMLHttpRequest"'
+alias ab-xhr='ab -H "X-Requested-With: XMLHttpRequest"'
 
 alias osx-pip-install-env='ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future'
-
-# Chrome
-alias chromekill="ps ux | grep -E '[C]hrome Helper --type=renderer' | grep -Ev extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"

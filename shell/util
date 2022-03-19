@@ -1,6 +1,6 @@
 #!/bin/bash
 
-add-to-path() {
+add-to-path () {
   local dir="$1"
 
   PATH=":$PATH:"
@@ -11,28 +11,38 @@ add-to-path() {
   PATH="$dir:$PATH"
 }
 
-follow-redirect() {
+chromekill () {
+  # shellcheck disable=SC2009
+  ps ux |
+      grep -E '[C]hrome Helper --type=renderer' |
+      grep -Ev extension-process |
+      tr -s ' ' |
+      cut -d ' ' -f2 |
+      xargs kill
+}
+
+follow-redirect () {
   curl -i "$1" 2>/dev/null | grep -Ei '^location: ' | cut -d ' ' -f 2
 }
 
-git-remote-url() {
+git-remote-url () {
   git config remote.origin.url |
       sed -E 's/^[a-z]+@/https:\/\//' |
       sed -E 's/^(https?:.*):/\1\//' |
       sed -E 's/\.git$//'
 }
 
-lolbanner() {
+lolbanner () {
   banner "$1" | sed "s/#/$2/g" | sed "s/ /$3/g"
 }
 
-remove-trailing-lines() {
+remove-trailing-lines () {
   sed -e :a -e '/^\n*$/{$d;N;}' -e '/\n$/ba' "$1" > "$1.sed-tmp"
   chmod --reference "$1" "$1.sed-tmp"
   mv "$1.sed-tmp" "$1"
 }
 
-self-sign() {
+self-sign () {
   local base="$1/server"
   mkdir -p "$1"
   openssl genrsa -out "$base.key" 2048
@@ -43,6 +53,6 @@ self-sign() {
   rm "$base.csr" "$base.key.org"
 }
 
-tm() {
+tm () {
   tmux new -s "$(basename "$PWD")"
 }
