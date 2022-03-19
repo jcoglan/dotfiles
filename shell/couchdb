@@ -1,0 +1,13 @@
+#!/bin/bash
+
+CDB_AUTH='admin:admin'
+CDB_HOST='127.0.0.1'
+CDB_PORT=5984
+
+cdb () {
+  curl -gs -H 'Content-Type: application/json' "$(cdb-host)$1" "${@:2}"
+}
+
+cdb-host () {
+  echo "http://${CDB_AUTH}@${CDB_HOST}:${CDB_PORT}"
+}
