@@ -2,6 +2,7 @@
 
 if [[ -f /etc/profile ]] ; then
   PATH=''
+  # shellcheck source=/dev/null
   . /etc/profile
 fi
 
