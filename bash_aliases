@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ -f /etc/profile ]] ; then
+  PATH=''
+  . /etc/profile
+fi
+
 for file in ~/.shell/* ; do
   # shellcheck source=/dev/null
   . "$file"
