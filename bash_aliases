@@ -1,9 +1,8 @@
 #!/bin/bash
 
-if [[ -f /etc/profile ]] ; then
+if [[ -x /usr/libexec/path_helper ]] ; then
   PATH=''
-  # shellcheck source=/dev/null
-  . /etc/profile
+  eval `/usr/libexec/path_helper -s`
 fi
 
 for file in ~/.shell/* ; do
