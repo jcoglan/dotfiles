@@ -21,14 +21,21 @@ set wildmenu
 filetype plugin indent on
 syntax enable
 set background=dark
-colorscheme peachpuff
+colorscheme desert
+
+highlight LineNr ctermfg=Blue
+" highlight Search ctermfg=Black
+" highlight Folded ctermbg=Black
+highlight GitGutterAdd ctermfg=LightGreen
+highlight GitGutterChange ctermfg=LightBlue
+highlight GitGutterDelete ctermfg=LightRed
+" highlight SignColumn ctermbg=NONE
 
 " search behaviour
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-highlight Search ctermfg=Black
 
 " whitespace
 set autoindent
@@ -42,7 +49,6 @@ set nowrap
 " fold based on indents, and unfold everything on loading files
 set foldmethod=indent
 autocmd BufRead * normal zR
-highlight Folded ctermbg=Black
 
 " set filetypes based on file extensions
 autocmd BufNewFile,BufRead *.erb set filetype=html
@@ -75,10 +81,6 @@ nnoremap <F8> :TlistToggle<CR>
 
 " settings: gitgutter
 let g:gitgutter_set_sign_backgrounds = 1
-highlight GitGutterAdd ctermfg=DarkGreen
-highlight GitGutterChange ctermfg=DarkBlue
-highlight GitGutterDelete ctermfg=DarkRed
-highlight SignColumn ctermbg=NONE
 
 " settings: other plugins
 let b:closetag_html_style = 1
