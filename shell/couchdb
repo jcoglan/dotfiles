@@ -8,6 +8,18 @@ cdb () {
   curl -gs -H 'Content-Type: application/json' "$(cdb-host)$1" "${@:2}"
 }
 
+cdb-edit () {
+  local doc="$1"
+  local file="/tmp/couch-doc-$RANDOM.json"
+
+  cdb "$doc" | jq > "$file"
+
+  if "${EDITOR:-vim}" "$file" ; then
+    cdb "$doc" -X PUT -d @"$file"
+  fi
+  rm "$file"
+}
+
 cdb-host () {
   echo "http://${CDB_AUTH}@${CDB_HOST}:${CDB_PORT}"
 }
