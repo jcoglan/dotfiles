@@ -1,0 +1,55 @@
+#!/bin/bash
+
+BACKUP_FILES=(
+  ~/.bash_custom
+  ~/.gnupg
+  ~/.profile
+  ~/.ssh
+  ~/.vagrant.d
+  ~/.zsh{env,rc}
+  ~/Brewfile
+  ~/Desktop
+  ~/Documents
+  ~/Downloads
+  ~/projects
+  ~/TODO.md
+  ~/VirtualBox\ VMs
+)
+
+backup-rsync-home () {
+  local target="$1"
+  local files=()
+  local file
+
+  if [[ -z "$target" ]] ; then
+    echo '[error] No destination given'
+    return 1
+  fi
+
+  for file in "${BACKUP_FILES[@]}" ; do
+    if [[ -e "$file" ]] ; then
+      files+=("$file")
+    fi
+  done
+
+  rsync -avP --delete "${files[@]}" "$target"
+}
+
+backup-rsync-macos-library () {
+  local target="$1"
+
+  if [[ -z "$target" ]] ; then
+    echo '[error] No destination given'
+    return 1
+  fi
+
+  rsync -avP --delete --delete-excluded --sparse \
+      --include 'Library/Application Scripts' \
+      --include 'Library/Application Support' \
+      --include 'Library/Containers' \
+      --include 'Library/Preferences' \
+      --include 'Library/Saved Application State' \
+      --exclude 'Library/*' \
+      ~/Library \
+      "$target"
+}
