@@ -38,6 +38,8 @@ chkfiles-generate-manifest () {
 }
 
 chkfiles-update-manifest () {
+  local filename
+
   chkfiles-unindexed | while read -r filename ; do
     shasum -b "$filename" >> "$CHKFILES_SHA_MANIFEST"
   done

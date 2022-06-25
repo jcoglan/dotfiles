@@ -16,6 +16,7 @@ for script in "${NVM_SCRIPTS[@]}" ; do
     . "$script"
   fi
 done
+unset script
 
 nvm use default
 
@@ -32,6 +33,8 @@ get-nvm-version () {
 }
 
 nvm-old-versions () {
+  local v
+
   nvm ls --no-alias |
       sed 's/.*\(v[0-9]*\).*/\1/' |
       grep -E '^v' |
@@ -41,6 +44,8 @@ nvm-old-versions () {
 }
 
 npm-run () {
+  local task
+
   for task in "$@" ; do
     if ! npm run "$task" ; then
       exit 1

@@ -33,6 +33,8 @@ bru-leaves () {
 }
 
 bru-check-deps () {
+  local pkg
+
   while read -r pkg ; do
     grep -Eq "$@" -e "^(brew|cask) '$pkg'" || echo "$pkg"
   done

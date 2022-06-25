@@ -15,6 +15,7 @@ for script in "${CHRUBY_SCRIPTS[@]}" ; do
     . "$script"
   fi
 done
+unset script
 
 get-chruby-version () {
   chruby | grep -E '\*' | cut -d ' ' -f 3

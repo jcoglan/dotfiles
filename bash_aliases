@@ -9,6 +9,7 @@ for file in ~/.shell/* ; do
   # shellcheck source=/dev/null
   . "$file"
 done
+unset file
 
 add-to-path "$HOME/.scripts"
 
