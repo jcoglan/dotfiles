@@ -3,12 +3,13 @@
 add-to-path () {
   local dir="$1"
 
-  PATH=":$PATH:"
-  PATH="${PATH//:$dir:/:}"
-  PATH="${PATH#:}"
-  PATH="${PATH%:}"
-
-  PATH="$dir:$PATH"
+  case ":${PATH}:" in
+    *:"$dir":*)
+      ;;
+    *)
+      PATH="$dir:$PATH"
+      ;;
+  esac
 }
 
 chromekill () {
