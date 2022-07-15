@@ -108,4 +108,5 @@ call plug#begin()
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'vim-erlang/vim-erlang-runtime'
+  Plug 'watzon/vim-edge-template'
 call plug#end()
