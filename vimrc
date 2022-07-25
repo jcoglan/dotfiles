@@ -87,6 +87,31 @@ let b:closetag_html_style = 1
 let g:mustache_abbreviations = 1
 let g:rustfmt_autosave = 1
 
+function ParentDirectories()
+  let l:home = expand('~')
+  let l:dir = getcwd()
+  let l:dirs = []
+
+  while l:dir != l:home
+    call add(l:dirs, l:dir)
+    let l:dir = fnamemodify(l:dir, ':h')
+  endwhile
+
+  return l:dirs
+endfunction
+
+function LoadIfPresent(file)
+  if filereadable(a:file)
+    execute 'source' a:file
+  endif
+endfunction
+
+for s:dir in ParentDirectories()
+  let s:relative = fnamemodify(s:dir, ':~')[2:]
+  call LoadIfPresent(s:dir . '/.vimrc')
+  call LoadIfPresent(expand('~/.vim/config/' . s:relative . '.vim'))
+endfor
+
 call plug#begin()
   Plug 'ElmCast/elm-vim'
   Plug 'airblade/vim-gitgutter'
