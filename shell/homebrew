@@ -20,6 +20,12 @@ bru () {
   brew cleanup
 }
 
+bru-pin () {
+  local pkg="$1"
+  local version="$2"
+  brew unlink "$pkg" && brew install "$pkg@$version" && brew link "$pkg@$version"
+}
+
 bru-packages () {
   { brew list --formula ; brew list --casks ; } | sort | uniq
 }
