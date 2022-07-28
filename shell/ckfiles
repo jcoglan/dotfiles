@@ -1,0 +1,75 @@
+#!/bin/bash
+
+CKFILES_MD5_MANIFEST='.manifest.md5'
+CKFILES_SHA_MANIFEST='.shasum.txt'
+
+alias ckfiles='time ckfiles-verify'
+
+ckfiles-verify () {
+  if [[ -e "$CKFILES_SHA_MANIFEST" ]] ; then
+    echo '--> checking manifest ...'
+    if ckfiles-check "$@" ; then
+      echo '--> updating manifest ...'
+      ckfiles-update-manifest
+    else
+      echo '==> files do not match the manifest'
+    fi
+  else
+    echo '--> generating new manifest ...'
+    ckfiles-generate-manifest
+  fi
+}
+
+ckfiles-check () {
+  local manifest="${1:-$CKFILES_SHA_MANIFEST}"
+
+  if [[ "$(uname -s)" == Darwin ]] ; then
+    shasum -qc "$manifest"
+  else
+    shasum -c "$manifest" | grep -Ev ': OK$'
+    [[ "${PIPESTATUS[0]}" -eq 0 ]]
+  fi
+}
+
+ckfiles-generate-manifest () {
+  local tmpfile="/tmp/shasum-$RANDOM.txt"
+  ckfiles-indexable | xargs -0 shasum -b > "$tmpfile"
+  mv "$tmpfile" "$CKFILES_SHA_MANIFEST"
+}
+
+ckfiles-update-manifest () {
+  local filename
+
+  ckfiles-unindexed | while read -r filename ; do
+    shasum -b "$filename" >> "$CKFILES_SHA_MANIFEST"
+  done
+}
+
+ckfiles-indexable () {
+  find . -name '.dropbox*' -prune \
+      -o -name '.DS_Store' \
+      -o -name 'Icon?' \
+      -o -name "$CKFILES_MD5_MANIFEST" \
+      -o -name "$CKFILES_SHA_MANIFEST" \
+      -o -type f -print0
+}
+
+ckfiles-indexed () {
+  cut -c 43- "$CKFILES_SHA_MANIFEST" 2> /dev/null
+}
+
+ckfiles-diff () {
+  local str="^$1 "
+
+  diff <(ckfiles-indexed | sort) <(ckfiles-indexable | tr '\0' '\n' | sort) |
+    grep -E "$str" |
+    cut -c 3-
+}
+
+ckfiles-missing () {
+  ckfiles-diff '<'
+}
+
+ckfiles-unindexed () {
+  ckfiles-diff '>'
+}
