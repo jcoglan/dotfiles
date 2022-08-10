@@ -48,13 +48,13 @@ set nowrap
 
 " fold based on indents, and unfold everything on loading files
 set foldmethod=indent
-autocmd BufRead * normal zR
+autocmd BufEnter * normal zR
 
 " set filetypes based on file extensions
-autocmd BufNewFile,BufRead *.erb set filetype=html
-autocmd BufNewFile,BufRead *.md set filetype=markdown
-autocmd BufNewFile,BufRead Berksfile,Brewfile,Gemfile,*.gemspec,*.ru set filetype=ruby
-autocmd BufNewFile,BufRead *.txt set filetype=text
+autocmd BufEnter *.erb set filetype=html
+autocmd BufEnter *.md set filetype=markdown
+autocmd BufEnter Berksfile,Brewfile,Gemfile,*.gemspec,*.ru set filetype=ruby
+autocmd BufEnter *.txt set filetype=text
 
 " filetype-dependent options
 autocmd FileType markdown,tex,text setlocal formatoptions+=t textwidth=80
