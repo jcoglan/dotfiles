@@ -1,0 +1,28 @@
+#!/bin/bash
+
+mgrep () {
+  local args=()
+  local terms=()
+
+  while :; do
+    if [[ "$1" == '--' ]] ; then
+      terms=("${@:2}")
+      break
+    else
+      args+=("$1")
+      shift
+    fi
+  done
+
+  if [[ "${#terms}" -eq 1 ]] ; then
+    grep -rl "${args[@]}" -e "${terms[1]}" | sort
+  else
+    comm -12 \
+        <(mgrep "${args[@]}" -- "${terms[1]}") \
+        <(mgrep "${args[@]}" -- "${terms[@]:1}")
+  fi
+}
+
+megrep () {
+  mgrep -E "$@"
+}
