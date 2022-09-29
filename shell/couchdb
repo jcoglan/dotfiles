@@ -15,7 +15,7 @@ cdb-edit () {
   cdb "$doc" | jq > "$file"
 
   if "${EDITOR:-vim}" "$file" ; then
-    cdb "$doc" -X PUT -d @"$file"
+    cdb "$doc" -iX PUT -d @"$file"
   fi
   rm "$file"
 }
