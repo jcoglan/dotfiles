@@ -128,6 +128,7 @@ call plug#begin()
   Plug 'leafgarland/typescript-vim'
   Plug 'mustache/vim-mustache-handlebars'
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+  Plug 'prettier/vim-prettier'
   Plug 'rust-lang/rust.vim'
   Plug 'tpope/vim-markdown'
   Plug 'tpope/vim-repeat'
