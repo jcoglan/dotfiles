@@ -12,14 +12,35 @@ cdb-host () {
   echo "http://${CDB_AUTH}@${CDB_HOST}:${CDB_PORT}"
 }
 
+cdb-nodes () {
+  cdb '/_membership' | jq -r '.cluster_nodes[]'
+}
+
+cdb-config-get () {
+  local key="$1"
+
+  cdb-nodes | while read -r node ; do
+    echo "[$node]"
+    cdb "/_node/$node/_config/$key"
+  done
+}
+
 cdb-config-set () {
   local key="$1"
   local value="$2"
-  local ports=("${@:3}")
 
-  for p in "${ports[@]}" ; do
-    CDB_PORT=$p cdb "/_node/_local/_config/$key" -X PUT -d "$value"
+  cdb-nodes | while read -r node ; do
+    echo "[$node] $key = $value"
+    cdb "/_node/$node/_config/$key" -X PUT -d "$value"
   done
+}
+
+cdb-enable-cors () {
+  cdb-config-set 'httpd/enable_cors' '"true"'
+  cdb-config-set 'cors/origins' '"*"'
+  cdb-config-set 'cors/credentials' '"true"'
+  cdb-config-set 'cors/methods' '"GET, PUT, POST, HEAD, DELETE"'
+  cdb-config-set 'cors/headers' '"accept, authorization, content-type, origin, referer, x-csrf-token"'
 }
 
 cdb-edit () {
