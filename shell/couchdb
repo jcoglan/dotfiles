@@ -8,6 +8,20 @@ cdb () {
   curl -gs -H 'Content-Type: application/json' "$(cdb-host)$1" "${@:2}"
 }
 
+cdb-host () {
+  echo "http://${CDB_AUTH}@${CDB_HOST}:${CDB_PORT}"
+}
+
+cdb-config-set () {
+  local key="$1"
+  local value="$2"
+  local ports=("${@:3}")
+
+  for p in "${ports[@]}" ; do
+    CDB_PORT=$p cdb "/_node/_local/_config/$key" -X PUT -d "$value"
+  done
+}
+
 cdb-edit () {
   local doc="$1"
   local file="/tmp/couch-doc-$RANDOM.json"
@@ -18,8 +32,4 @@ cdb-edit () {
     cdb "$doc" -iX PUT -d @"$file"
   fi
   rm "$file"
-}
-
-cdb-host () {
-  echo "http://${CDB_AUTH}@${CDB_HOST}:${CDB_PORT}"
 }
