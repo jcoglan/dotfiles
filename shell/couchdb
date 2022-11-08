@@ -3,13 +3,18 @@
 CDB_AUTH='admin:admin'
 CDB_HOST='127.0.0.1'
 CDB_PORT=5984
+CDB_URL=''
 
 cdb () {
   curl -gs -H 'Content-Type: application/json' "$(cdb-host)$1" "${@:2}"
 }
 
 cdb-host () {
-  echo "http://${CDB_AUTH}@${CDB_HOST}:${CDB_PORT}"
+  if [[ -z "$CDB_URL" ]] ; then
+    echo "http://${CDB_AUTH}@${CDB_HOST}:${CDB_PORT}"
+  else
+    echo "$CDB_URL"
+  fi
 }
 
 cdb-nodes () {
