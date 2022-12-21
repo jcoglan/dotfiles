@@ -59,3 +59,9 @@ cdb-edit () {
   fi
   rm "$file"
 }
+
+cdb-delete () {
+  local doc="$1"
+  local rev="$(cdb "$doc" | jq -r '._rev')"
+  cdb "$doc" -X DELETE -H "If-Match: $rev"
+}
