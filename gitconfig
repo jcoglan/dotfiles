@@ -3,7 +3,8 @@
     email = jcoglan@gmail.com
 
 [core]
-    excludesfile = ~/.gitignore
+    excludesFile = ~/.gitignore
+    pager = less -iS
 
 [apply]
     whitespace = strip
