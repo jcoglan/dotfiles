@@ -24,6 +24,7 @@
     autoStash = true
 
 [alias]
+    br = branch
     ca = commit --all
     co = checkout
     d  = diff
