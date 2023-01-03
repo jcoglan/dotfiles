@@ -1,18 +1,28 @@
 #!/bin/bash
 
-if [[ -d /opt/homebrew ]] ; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+bru-setup-completions () {
+  local prefix="$1"
 
-  if [[ -n "$BASH_VERSION" && -f "$(brew --prefix)/etc/bash_completion" ]] ; then
+  if [[ -z "$prefix" ]] ; then
+    return 1
+  fi
+
+  if [[ -n "$BASH_VERSION" && -f "$prefix/etc/bash_completion" ]] ; then
     # shellcheck source=/dev/null
-    . "$(brew --prefix)/etc/bash_completion"
+    . "$prefix/etc/bash_completion"
 
   elif [[ -n "$ZSH_VERSION" ]] ; then
-    FPATH="$(brew --prefix)/share/zsh-completions:$FPATH"
+    FPATH="$prefix/share/zsh-completions:$FPATH"
     autoload -Uz compinit
     compinit
   fi
+}
+
+if [[ -d /opt/homebrew ]] ; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+
+bru-setup-completions "$(brew --prefix)"
 
 bru () {
   brew update
