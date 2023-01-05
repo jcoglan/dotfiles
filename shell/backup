@@ -54,3 +54,19 @@ backup-rsync-macos-library () {
       ~/Library \
       "$target"
 }
+
+tar-down () {
+  local host="$1"
+  local src="$2"
+  local dst="$3"
+
+  ssh "$host" tar --sparse -czvf - "$src" | tar -xzf - -C "$dst"
+}
+
+tar-up () {
+  local host="$1"
+  local src="$2"
+  local dst="$3"
+
+  tar --sparse -czvf - "$src" | ssh "$host" tar -xzf - -C "$dst"
+}
