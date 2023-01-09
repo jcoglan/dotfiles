@@ -57,9 +57,10 @@ autocmd BufEnter Berksfile,Brewfile,Gemfile,*.gemspec,*.ru set filetype=ruby
 autocmd BufEnter *.txt set filetype=text
 
 " filetype-dependent options
-autocmd FileType markdown,tex,text setlocal formatoptions+=t textwidth=80
-autocmd FileType c,cpp,make setlocal noexpandtab shiftwidth=0 softtabstop=0
-autocmd FileType erlang,java,prolog,python setlocal shiftwidth=4 softtabstop=4
+" tw = textwidth, sw = shiftwidth, sts = softtabstop
+autocmd FileType markdown,tex,text setlocal sw=2 sts=2 formatoptions+=t tw=80
+autocmd FileType c,cpp,make setlocal noexpandtab sw=0 sts=0
+autocmd FileType erlang,java,prolog,python setlocal sw=4 sts=4
 
 " abbreviations
 "   |-      ⊢
