@@ -70,3 +70,44 @@ tar-up () {
 
   tar --sparse -czvf - "$src" | ssh "$host" tar -xzf - -C "$dst"
 }
+
+backup-github () {
+  local target="$1"
+  local name=''
+  local url=''
+  local dir=''
+
+  github-repos | while read -r repo ; do
+    name="${repo%,*}"
+    url="${repo#*,}"
+
+    dir="$target/$name.git"
+
+    if [[ -d "$dir" ]] ; then
+      cd "$dir"
+      git fetch --prune --verbose origin
+      cd -
+    else
+      mkdir -p "$(dirname "$dir")"
+      git clone --mirror "$url" "$dir"
+    fi
+  done
+}
+
+GITHUB_REPO_URL='https://api.github.com/user/repos'
+
+github-repos () {
+  local page=1
+  local response=''
+
+  while :; do
+    response="$(curl -s "$GITHUB_REPO_URL?page=$page" -H "Authorization: Bearer $GITHUB_TOKEN")"
+
+    if [[ $(jq 'length' <<<"$response") -eq 0 ]] ; then
+      return
+    else
+      jq -r 'map(.full_name + "," + .ssh_url)[]' <<<"$response"
+      let page=page+1
+    fi
+  done
+}
