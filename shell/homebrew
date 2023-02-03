@@ -18,11 +18,12 @@ bru-setup-completions () {
   fi
 }
 
-if [[ -d /opt/homebrew ]] ; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-bru-setup-completions "$(brew --prefix)"
+hash brew 2>/dev/null && {
+  bru-setup-completions "$(brew --prefix)"
+  if [[ -d /opt/homebrew ]] ; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+}
 
 bru () {
   brew update
