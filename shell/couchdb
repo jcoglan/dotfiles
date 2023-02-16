@@ -67,3 +67,11 @@ cdb-delete () {
   rev="$(cdb "$doc" | jq -r '._rev')"
   cdb "$doc" -X DELETE -H "If-Match: $rev"
 }
+
+uri-enc () {
+  xargs node -e 'for (const arg of process.argv.slice(1)) console.log(encodeURIComponent(arg))'
+}
+
+uri-dec () {
+  xargs node -e 'for (const arg of process.argv.slice(1)) console.log(decodeURIComponent(arg))'
+}
