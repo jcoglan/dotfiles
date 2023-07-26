@@ -6,6 +6,10 @@ CDB_PORT=5984
 CDB_URL=''
 CDB_COOKIE=''
 
+# ------------------------------------------------------------------------
+# Main interface
+# ------------------------------------------------------------------------
+
 cdb () {
   local type_json='Content-Type: application/json'
   local auth=()
@@ -26,6 +30,35 @@ cdb-host () {
     echo "http://${CDB_HOST}:${CDB_PORT}"
   fi
 }
+
+# ------------------------------------------------------------------------
+# Edit and delete documents
+# ------------------------------------------------------------------------
+
+cdb-edit () {
+  local doc="$1"
+  local file="/tmp/couch-doc-$RANDOM.json"
+  local editor="${EDITOR:-vim}"
+
+  cdb "$doc" | jq > "$file"
+
+  if "$editor" "$file" ; then
+    cdb "$doc" -iX PUT -d @"$file"
+  fi
+  rm "$file"
+}
+
+cdb-delete () {
+  local doc="$1"
+  local rev
+
+  rev="$(cdb "$doc" | jq -r '._rev')"
+  cdb "$doc" -X DELETE -H "If-Match: $rev"
+}
+
+# ------------------------------------------------------------------------
+# Sessions, cookie-based auth
+# ------------------------------------------------------------------------
 
 cdb-login () {
   local username="${CDB_AUTH%:*}"
@@ -50,6 +83,10 @@ JSON
 cdb-logout () {
   CDB_COOKIE=''
 }
+
+# ------------------------------------------------------------------------
+# Configuration
+# ------------------------------------------------------------------------
 
 cdb-nodes () {
   cdb '/_membership' | jq -r '.cluster_nodes[]'
@@ -82,25 +119,9 @@ cdb-enable-cors () {
   cdb-config-set 'cors/headers' '"accept, authorization, content-type, origin, referer, x-csrf-token"'
 }
 
-cdb-edit () {
-  local doc="$1"
-  local file="/tmp/couch-doc-$RANDOM.json"
-
-  cdb "$doc" | jq > "$file"
-
-  if "${EDITOR:-vim}" "$file" ; then
-    cdb "$doc" -iX PUT -d @"$file"
-  fi
-  rm "$file"
-}
-
-cdb-delete () {
-  local doc="$1"
-  local rev
-
-  rev="$(cdb "$doc" | jq -r '._rev')"
-  cdb "$doc" -X DELETE -H "If-Match: $rev"
-}
+# ------------------------------------------------------------------------
+# URI encoding
+# ------------------------------------------------------------------------
 
 uri-enc () {
   xargs node -e 'for (const arg of process.argv.slice(1)) console.log(encodeURIComponent(arg))'
