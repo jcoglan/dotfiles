@@ -4,17 +4,51 @@ CDB_AUTH='admin:admin'
 CDB_HOST='127.0.0.1'
 CDB_PORT=5984
 CDB_URL=''
+CDB_COOKIE=''
 
 cdb () {
-  curl -gs -H 'Content-Type: application/json' "$(cdb-host)$1" "${@:2}"
+  local type_json='Content-Type: application/json'
+  local auth=()
+
+  if [[ -n "$CDB_COOKIE" ]] ; then
+    auth=(-b "$CDB_COOKIE")
+  else
+    auth=(-u "$CDB_AUTH")
+  fi
+
+  curl -gs -H "$type_json" "${auth[@]}" "$(cdb-host)$1" "${@:2}"
 }
 
 cdb-host () {
-  if [[ -z "$CDB_URL" ]] ; then
-    echo "http://${CDB_AUTH}@${CDB_HOST}:${CDB_PORT}"
-  else
+  if [[ -n "$CDB_URL" ]] ; then
     echo "$CDB_URL"
+  else
+    echo "http://${CDB_HOST}:${CDB_PORT}"
   fi
+}
+
+cdb-login () {
+  local username="${CDB_AUTH%:*}"
+  local password="${CDB_AUTH#*:}"
+  local header=''
+
+  cdb-logout
+
+  header="$(cdb '/_session' -iX POST -d @- | egrep -i '^set-cookie:')" <<JSON
+    {
+      "username": "$username",
+      "password": "$password"
+    }
+JSON
+
+  header="${header#*: }"
+  header="${header%%;*}"
+
+  CDB_COOKIE="$header"
+}
+
+cdb-logout () {
+  CDB_COOKIE=''
 }
 
 cdb-nodes () {
