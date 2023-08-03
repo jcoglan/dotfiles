@@ -111,6 +111,15 @@ cdb-config-set () {
   done
 }
 
+cdb-config-unset () {
+  local key="$1"
+
+  cdb-nodes | while read -r node ; do
+    echo "[$node] $key"
+    cdb "/_node/$node/_config/$key" -X DELETE
+  done
+}
+
 cdb-enable-cors () {
   cdb-config-set 'httpd/enable_cors' '"true"'
   cdb-config-set 'cors/origins' '"*"'
