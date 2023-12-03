@@ -3,6 +3,8 @@
 # Turn off beeps
 # hash xset 2>/dev/null && xset -b
 
+export GPG_TTY="$(tty)"
+
 export EDITOR=vim
 [[ "$(uname -s)" == Darwin ]] && export GREP_OPTIONS='--color'
 
