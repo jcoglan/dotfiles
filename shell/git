@@ -1,0 +1,15 @@
+#!/bin/bash
+
+git-dirty-repos () {
+  local search_dir="$1"
+  (
+    find "$search_dir" -name .git | while read -r dir ; do
+      cd "$(dirname "$dir")"
+      if [[ "$( git status --short -uno | wc -l )" -gt 0 ]] ; then
+        echo "[uncommitted]   $PWD"
+      elif git branch -vv | egrep -q '\[.* ahead .*\]' ; then
+        echo "[unpushed]      $PWD"
+      fi
+    done
+  )
+}
