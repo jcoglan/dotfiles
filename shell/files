@@ -1,0 +1,11 @@
+#!/bin/bash
+
+filetypes () {
+  local dir="${1:-.}"
+
+  find "$dir" -type f |
+      while read -r f ; do echo "${f##*.}" ; done |
+      sort |
+      uniq -c |
+      sort -rn
+}
