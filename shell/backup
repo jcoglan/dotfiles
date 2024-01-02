@@ -17,6 +17,18 @@ BACKUP_FILES=(
   ~/VirtualBox\ VMs
 )
 
+backup-add-file () {
+  local file="$1"
+
+  for entry in "${BACKUP_FILES[@]}"; do
+    if [[ "$entry" == "$file" ]] ; then
+      return
+    fi
+  done
+
+  BACKUP_FILES+=("$file")
+}
+
 backup-rsync-home () {
   local target="$1"
   local files=()
