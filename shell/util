@@ -22,29 +22,6 @@ follow-redirect () {
   curl -i "$1" 2>/dev/null | grep -Ei '^location: ' | cut -d ' ' -f 2
 }
 
-git-remote-url () {
-  git config remote.origin.url |
-      sed -E 's/^[a-z]+@/https:\/\//' |
-      sed -E 's/^(https?:.*):/\1\//' |
-      sed -E 's/\.git$//'
-}
-
-git-ckdirnames () {
-  local dir="$1"
-
-  find "$dir" -name .git -print -prune | while read -r dir ; do
-    basename="$(basename "$(dirname "$dir")")"
-    url="$(git config --file="$dir/config" remote.origin.url)"
-    repo="${url##*/}"
-
-    if [[ "$basename.git" != "$repo" ]] ; then
-      echo "$dir"
-      echo "$url"
-      echo
-    fi
-  done
-}
-
 lolbanner () {
   banner "$1" | sed "s/#/$2/g" | sed "s/ /$3/g"
 }

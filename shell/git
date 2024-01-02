@@ -1,5 +1,28 @@
 #!/bin/bash
 
+git-ckdirnames () {
+  local dir="$1"
+
+  find "$dir" -name .git -print -prune | while read -r dir ; do
+    basename="$(basename "$(dirname "$dir")")"
+    url="$(git config --file="$dir/config" remote.origin.url)"
+    repo="${url##*/}"
+
+    if [[ "$basename.git" != "$repo" ]] ; then
+      echo "$dir"
+      echo "$url"
+      echo
+    fi
+  done
+}
+
+git-remote-url () {
+  git config remote.origin.url |
+      sed -E 's/^[a-z]+@/https:\/\//' |
+      sed -E 's/^(https?:.*):/\1\//' |
+      sed -E 's/\.git$//'
+}
+
 git-dirty-repos () {
   local search_dir="$1"
   (
