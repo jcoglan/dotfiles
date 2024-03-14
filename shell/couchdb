@@ -20,14 +20,22 @@ cdb () {
     auth=(-u "$CDB_AUTH")
   fi
 
-  curl -gs -H "$type_json" "${auth[@]}" "$(cdb-host)$1" "${@:2}"
+  curl -gs -H "$type_json" "${auth[@]}" "$(cdb-host-no-auth)$1" "${@:2}"
+}
+
+cdb-host-no-auth () {
+  if [[ -n "$CDB_URL" ]] ; then
+    echo "$CDB_URL"
+  else
+    echo "http://${CDB_HOST}:${CDB_PORT}"
+  fi
 }
 
 cdb-host () {
   if [[ -n "$CDB_URL" ]] ; then
     echo "$CDB_URL"
   else
-    echo "http://${CDB_HOST}:${CDB_PORT}"
+    echo "http://${CDB_AUTH}@${CDB_HOST}:${CDB_PORT}"
   fi
 }
 
