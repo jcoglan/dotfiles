@@ -58,7 +58,7 @@ autocmd BufEnter *.txt set filetype=text
 
 " filetype-dependent options
 " tw = textwidth, sw = shiftwidth, sts = softtabstop
-autocmd FileType markdown,tex,text setlocal sw=2 sts=2 formatoptions+=t tw=80
+autocmd FileType markdown,rst,tex,text setlocal sw=2 sts=2 formatoptions+=t tw=80
 autocmd FileType c,cpp,make setlocal noexpandtab sw=0 sts=0
 autocmd FileType erlang,java,prolog,python setlocal sw=4 sts=4
 
