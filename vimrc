@@ -121,6 +121,7 @@ call plug#begin()
   Plug 'digitaltoad/vim-jade'
   Plug 'docunext/closetag.vim'
   Plug 'elixir-editors/vim-elixir'
+  Plug 'gleam-lang/gleam.vim'
   Plug 'godlygeek/tabular'
   Plug 'idris-hackers/idris-vim'
   Plug 'jelera/vim-javascript-syntax'
