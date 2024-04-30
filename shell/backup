@@ -48,6 +48,15 @@ backup-rsync-home () {
   rsync -avP --delete "${files[@]}" "$target"
 }
 
+# game save locations:
+#
+#   - Library/Application Scripts/com.visiontrick.pavilionmac
+#   - Library/Application Support/se.househou.untitled-goose-game
+#   - Library/Containers/com.thekla.the-witness
+#   - Library/Containers/com.visiontrick.pavilionmac
+#   - Library/Preferences/se.househou.untitled-goose-game.plist
+#   - Library/Saved Application State/se.househou.untitled-goose-game.savedState
+#
 backup-rsync-macos-library () {
   local target="$1"
 
@@ -61,6 +70,7 @@ backup-rsync-macos-library () {
   rsync -avP --delete --delete-excluded --ignore-errors --sparse \
       --include 'Library/Application Scripts' \
       --include 'Library/Application Support' \
+      --include 'Library/Containers' \
       --include 'Library/Preferences' \
       --include 'Library/Saved Application State' \
       --exclude 'Library/*' \
