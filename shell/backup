@@ -56,10 +56,11 @@ backup-rsync-macos-library () {
     return 1
   fi
 
+  # todo: what about Library/Containers
+
   rsync -avP --delete --delete-excluded --ignore-errors --sparse \
       --include 'Library/Application Scripts' \
       --include 'Library/Application Support' \
-      --include 'Library/Containers' \
       --include 'Library/Preferences' \
       --include 'Library/Saved Application State' \
       --exclude 'Library/*' \
