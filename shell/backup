@@ -1,9 +1,9 @@
 #!/bin/bash
 
 BACKUP_FILES=(
-  ~/.bash_custom
   ~/.gnupg
   ~/.profile
+  ~/.shell-extra
   ~/.ssh
   ~/.vagrant.d
   ~/.zsh{env,rc}
