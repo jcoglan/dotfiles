@@ -9,6 +9,14 @@ for file in ~/.shell/* ; do
   # shellcheck source=/dev/null
   . "$file"
 done
+
+if [[ -d ~/.shell-extra ]] ; then
+  for file in ~/.shell-extra/* ; do
+    # shellcheck source=/dev/null
+    . "$file"
+  done
+fi
+
 unset file
 
 add-to-path "$HOME/.scripts"
