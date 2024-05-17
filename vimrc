@@ -115,13 +115,13 @@ endfor
 
 call plug#begin()
   Plug 'ElmCast/elm-vim'
-  Plug 'airblade/vim-gitgutter'
+  Plug 'airblade/vim-gitgutter', { 'branch': 'main' }
   Plug 'ap/vim-css-color'
   Plug 'brandonbloom/vim-factor'
   Plug 'digitaltoad/vim-jade'
   Plug 'docunext/closetag.vim'
   Plug 'elixir-editors/vim-elixir'
-  Plug 'gleam-lang/gleam.vim'
+  Plug 'gleam-lang/gleam.vim', { 'branch': 'main' }
   Plug 'godlygeek/tabular'
   Plug 'idris-hackers/idris-vim'
   Plug 'jelera/vim-javascript-syntax'
