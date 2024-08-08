@@ -5,15 +5,20 @@ alias ne='npm run-script'
 export NVM_DIR='/opt/nvm'
 
 NVM_SCRIPTS=(
-  /opt/homebrew/opt/nvm/nvm.sh
-  /usr/local/opt/nvm/nvm.sh
-  /opt/nvm/nvm.sh
+  /opt/homebrew/opt/nvm
+  /usr/local/opt/nvm
+  /opt/nvm
+  "$HOME/.nvm"
 )
 
 for script in "${NVM_SCRIPTS[@]}" ; do
-  if [[ -f "$script" ]] ; then
+  if [[ -f "$script/nvm.sh" ]] ; then
     # shellcheck source=/dev/null
-    . "$script"
+    . "$script/nvm.sh"
+  fi
+  if [[ -f "$script/bash_completion" ]] ; then
+    # shellcheck source=/dev/null
+    . "$script/bash_completion"
   fi
 done
 unset script
