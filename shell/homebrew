@@ -59,5 +59,5 @@ bru-check-deps () {
 }
 
 bru-check () {
-  bru-leaves | bru-check-deps ~{,/Dropbox}/Brewfile
+  bru-leaves | bru-check-deps ~/{Documents,Dropbox}/Brewfile
 }
