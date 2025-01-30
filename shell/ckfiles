@@ -3,6 +3,29 @@
 CKFILES_MD5_MANIFEST='.manifest.md5'
 CKFILES_SHA_MANIFEST='.shasum.txt'
 
+CKFILES_IGNORE=(
+  "$CKFILES_MD5_MANIFEST"
+  "$CKFILES_SHA_MANIFEST"
+  '.DS_Store'
+  '.dropbox*'
+  'Icon?'
+  'Thumbs.db'
+  'ZbThumbnail.info'
+)
+
+ckfiles-ignore () {
+  local file="$1"
+  local name
+
+  for name in "${CKFILES_IGNORE[@]}"; do
+    if [[ "$name" == "$file" ]] ; then
+      return
+    fi
+  done
+
+  CKFILES_IGNORE+=("$file")
+}
+
 alias ckfiles='time ckfiles-verify'
 
 ckfiles-verify () {
@@ -45,12 +68,14 @@ ckfiles-update-manifest () {
 }
 
 ckfiles-indexable () {
-  find . -name '.dropbox*' -prune \
-      -o -name '.DS_Store' \
-      -o -name 'Icon?' \
-      -o -name "$CKFILES_MD5_MANIFEST" \
-      -o -name "$CKFILES_SHA_MANIFEST" \
-      -o -type f -print0
+  local ignore=()
+  local name
+
+  for name in "${CKFILES_IGNORE[@]}" ; do
+    ignore+=(-name "$name" -prune -o)
+  done
+
+  find . "${ignore[@]}" -type f -print0
 }
 
 ckfiles-indexed () {
