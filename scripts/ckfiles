@@ -1,0 +1,97 @@
+#!/bin/bash
+
+set -euo pipefail
+
+SUMCMD=shasum
+INDEX_FILE=.shasum.txt
+IGNORE_FILE=~/.ckignore
+
+ignored_files=("$INDEX_FILE")
+
+main () {
+  configure "$@"
+
+  if [[ -f "$INDEX_FILE" ]] ; then
+    echo '==> checking index'
+    if check-index ; then
+      echo '==> updating index'
+      update-index
+    else
+      echo '[!] files do not match the index'
+    fi
+  else
+    echo '==> creating new index'
+    create-index
+  fi
+}
+
+configure () {
+  local file
+
+  case "$(uname -s)" in
+    Linux)
+      if hash shasum 2> /dev/null ; then
+        SUMCMD=shasum
+      elif hash sha1sum 2> /dev/null ; then
+        SUMCMD=sha1sum
+      fi
+      ;;
+    Darwin)
+      SUMCMD=shasum
+      ;;
+  esac
+
+  if [[ -f "$IGNORE_FILE" ]] ; then
+    while read -r file ; do
+      ignored_files+=("$file")
+    done < "$IGNORE_FILE"
+  fi
+}
+
+create-index () {
+  indexable-files | append-to-index
+}
+
+update-index () {
+  unindexed-files | append-to-index
+}
+
+append-to-index () {
+  tr '\n' '\0' | xargs -0 $SUMCMD --binary >> "$INDEX_FILE"
+}
+
+check-index () {
+  $SUMCMD --check --warn --quiet "$INDEX_FILE"
+}
+
+indexable-files () {
+  local ignore=()
+  local name
+
+  for name in "${ignored_files[@]}" ; do
+    ignore+=(-name "$name" -prune -o)
+  done
+
+  find . "${ignore[@]}" -type f -print0
+}
+
+indexed-files () {
+  if [[ -f "$INDEX_FILE" ]] ; then
+    sed -E 's/^[^ ]+ +\*?//g' "$INDEX_FILE"
+  fi
+}
+
+unindexed-files () {
+  diff-file-lists '<'
+}
+
+diff-file-lists () {
+  local prefix="^$1 "
+
+  diff <(indexable-files | tr '\0' '\n' | sort) \
+       <(indexed-files | sort) |
+    grep -E "$prefix" |
+    cut -c 3-
+}
+
+main "$@"
