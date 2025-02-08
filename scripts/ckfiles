@@ -10,37 +10,18 @@ ignored_files=("$INDEX_FILE")
 request_cmd=''
 default_cmd=verify
 
+# ------------------------------------------------------------------------
+# Main interface
+# ------------------------------------------------------------------------
+
 main () {
   configure "$@"
   cmd-"${request_cmd:-$default_cmd}"
 }
 
-die () {
-  echo "[!] $1" >&2
-  exit 1
-}
-
 configure () {
-  local file
-
-  case "$(uname -s)" in
-    Linux)
-      if hash shasum 2> /dev/null ; then
-        SUMCMD=shasum
-      elif hash sha1sum 2> /dev/null ; then
-        SUMCMD=sha1sum
-      fi
-      ;;
-    Darwin)
-      SUMCMD=shasum
-      ;;
-  esac
-
-  if [[ -f "$IGNORE_FILE" ]] ; then
-    while read -r file ; do
-      ignored_files+=("$file")
-    done < "$IGNORE_FILE"
-  fi
+  SUMCMD="$(find-shasum-cmd)"
+  load-ignore-files
 
   while [[ $# -gt 0 ]] ; do
     case "$1" in
@@ -67,6 +48,39 @@ configure () {
   done
 }
 
+# ------------------------------------------------------------------------
+# Configuration functions
+# ------------------------------------------------------------------------
+
+find-shasum-cmd () {
+  local candidates=(shasum sha1sum)
+  local cmd
+
+  case "$(uname -s)" in
+    Linux)
+      for cmd in "${candidates[@]}" ; do
+        if hash "$cmd" 2> /dev/null ; then
+          echo "$cmd"
+          return
+        fi
+      done
+      ;;
+    Darwin)
+      echo 'shasum'
+      ;;
+  esac
+}
+
+load-ignore-files () {
+  local file
+
+  if [[ -f "$IGNORE_FILE" ]] ; then
+    while read -r file ; do
+      ignored_files+=("$file")
+    done < "$IGNORE_FILE"
+  fi
+}
+
 set-command () {
   if [[ -z "$request_cmd" ]] ; then
     request_cmd="$1"
@@ -74,6 +88,15 @@ set-command () {
     die "command was already set to: $request_cmd"
   fi
 }
+
+die () {
+  echo "[!] $1" >&2
+  exit 1
+}
+
+# ------------------------------------------------------------------------
+# Status commands
+# ------------------------------------------------------------------------
 
 cmd-status () {
   if [[ ! -f "$INDEX_FILE" ]] ; then
@@ -134,6 +157,10 @@ cmd-missing () {
   missing-files
 }
 
+# ------------------------------------------------------------------------
+# Verification commands
+# ------------------------------------------------------------------------
+
 cmd-verify () {
   if [[ -f "$INDEX_FILE" ]] ; then
     cmd-check
@@ -165,6 +192,10 @@ cmd-add () {
     update-index
   fi
 }
+
+# ------------------------------------------------------------------------
+# Business logic
+# ------------------------------------------------------------------------
 
 create-index () {
   indexable-files | append-to-index
