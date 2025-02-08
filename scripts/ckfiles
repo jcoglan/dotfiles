@@ -15,6 +15,11 @@ main () {
   cmd-"${request_cmd:-$default_cmd}"
 }
 
+die () {
+  echo "$@" >&2
+  exit 1
+}
+
 configure () {
   local file
 
@@ -49,8 +54,7 @@ configure () {
         set-command 'missing'
         ;;
       *)
-        echo "unrecognised input: $1"
-        exit 1
+        die "unrecognised input: $1"
         ;;
     esac
     shift
@@ -61,8 +65,7 @@ set-command () {
   if [[ -z "$request_cmd" ]] ; then
     request_cmd="$1"
   else
-    echo "command was already set to: $request_cmd"
-    exit 1
+    die "command was already set to: $request_cmd"
   fi
 }
 
