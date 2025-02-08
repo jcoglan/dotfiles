@@ -7,22 +7,12 @@ INDEX_FILE=.shasum.txt
 IGNORE_FILE=~/.ckignore
 
 ignored_files=("$INDEX_FILE")
+request_cmd=''
+default_cmd=verify
 
 main () {
   configure "$@"
-
-  if [[ -f "$INDEX_FILE" ]] ; then
-    echo '==> checking index'
-    if check-index ; then
-      echo '==> updating index'
-      update-index
-    else
-      echo '[!] files do not match the index'
-    fi
-  else
-    echo '==> creating new index'
-    create-index
-  fi
+  cmd-"${request_cmd:-$default_cmd}"
 }
 
 configure () {
@@ -45,6 +35,108 @@ configure () {
     while read -r file ; do
       ignored_files+=("$file")
     done < "$IGNORE_FILE"
+  fi
+
+  while [[ $# -gt 0 ]] ; do
+    case "$1" in
+      -s | --status)
+        set-command 'status'
+        ;;
+      -u | --unindexed)
+        set-command 'unindexed'
+        ;;
+      -m | --missing)
+        set-command 'missing'
+        ;;
+      *)
+        echo "unrecognised input: $1"
+        exit 1
+        ;;
+    esac
+    shift
+  done
+}
+
+set-command () {
+  if [[ -z "$request_cmd" ]] ; then
+    request_cmd="$1"
+  else
+    echo "command was already set to: $request_cmd"
+    exit 1
+  fi
+}
+
+cmd-status () {
+  if [[ ! -f "$INDEX_FILE" ]] ; then
+    local indexable="$(indexable-files | count-lines)"
+
+    echo 'No ckfiles index found'
+    echo "indexable files: $indexable"
+    return
+  fi
+
+  local file_mtime="$(file-modified "$INDEX_FILE")"
+  local file_hash="$(file-hash "$INDEX_FILE")"
+
+  local indexed="$(indexed-files | count-lines)"
+  local unindexed="$(unindexed-files | count-lines)"
+  local missing="$(missing-files | count-lines)"
+  local stat
+
+  echo 'ckfiles index file:'
+  echo "    name:       $INDEX_FILE"
+  echo "    modified:   $file_mtime"
+  echo "    hash:       $file_hash"
+  echo
+  echo 'files:'
+  for stat in indexed unindexed missing ; do
+    printf "    %-10s %'10.f\n" "${stat}:" "${!stat}"
+  done
+  echo
+}
+
+file-hash () {
+  $SUMCMD "$1" | awk '{ print $1 }'
+}
+
+file-modified () {
+  local filename="$1"
+
+  case "$(uname -s)" in
+    Linux)
+      stat -c '%y' "$filename" | cut -d. -f1
+      ;;
+    Darwin)
+      local ts="$(stat -f '%m' "$filename")"
+      date -r "$ts" '+%Y-%m-%d %H:%M:%S'
+      ;;
+  esac
+}
+
+count-lines () {
+  tr '\0' '\n' | wc -l | awk '{ print $1 }'
+}
+
+cmd-unindexed () {
+  unindexed-files
+}
+
+cmd-missing () {
+  missing-files
+}
+
+cmd-verify () {
+  if [[ -f "$INDEX_FILE" ]] ; then
+    echo '==> checking index'
+    if check-index ; then
+      echo '==> updating index'
+      update-index
+    else
+      echo '[!] files do not match the index'
+    fi
+  else
+    echo '==> creating new index'
+    create-index
   fi
 }
 
@@ -83,6 +175,10 @@ indexed-files () {
 
 unindexed-files () {
   diff-file-lists '<'
+}
+
+missing-files () {
+  diff-file-lists '>'
 }
 
 diff-file-lists () {
