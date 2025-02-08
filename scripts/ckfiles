@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
+set -eo pipefail
 
 SUMCMD=shasum
 INDEX_FILE=.shasum.txt
@@ -222,6 +222,10 @@ check-index () {
   $SUMCMD --check --warn --quiet "$INDEX_FILE"
 }
 
+all-files () {
+  find . -type f -print0
+}
+
 indexable-files () {
   local ignore=()
   local name
@@ -240,19 +244,20 @@ indexed-files () {
 }
 
 unindexed-files () {
-  diff-file-lists '<'
+  diff-file-lists indexable indexed
 }
 
 missing-files () {
-  diff-file-lists '>'
+  diff-file-lists indexed all
 }
 
 diff-file-lists () {
-  local prefix="^$1 "
+  local expect="$1"
+  local actual="$2"
 
-  diff <(indexable-files | tr '\0' '\n' | sort) \
-       <(indexed-files | sort) |
-    grep -E "$prefix" |
+  diff <("$expect"-files | tr '\0' '\n' | sort) \
+       <("$actual"-files | tr '\0' '\n' | sort) |
+    grep -E '^<' |
     cut -c 3-
 }
 
