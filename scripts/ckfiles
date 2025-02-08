@@ -16,7 +16,7 @@ main () {
 }
 
 die () {
-  echo "$@" >&2
+  echo "[!] $1" >&2
   exit 1
 }
 
@@ -44,6 +44,12 @@ configure () {
 
   while [[ $# -gt 0 ]] ; do
     case "$1" in
+      -a | --add)
+        set-command 'add'
+        ;;
+      -c | --check)
+        set-command 'check'
+        ;;
       -s | --status)
         set-command 'status'
         ;;
@@ -130,16 +136,33 @@ cmd-missing () {
 
 cmd-verify () {
   if [[ -f "$INDEX_FILE" ]] ; then
-    echo '==> checking index'
-    if check-index ; then
-      echo '==> updating index'
-      update-index
-    else
-      echo '[!] files do not match the index'
-    fi
+    cmd-check
+    cmd-add
   else
     echo '==> creating new index'
     create-index
+  fi
+}
+
+cmd-check () {
+  if [[ ! -f "$INDEX_FILE" ]] ; then
+    die 'no ckfiles index file present'
+  fi
+
+  local indexed="$(indexed-files | count-lines)"
+  printf "==> checking index (%'.f files) ...\n" "$indexed"
+
+  if ! check-index ; then
+    die 'files do not match the index'
+  fi
+}
+
+cmd-add () {
+  local unindexed="$(unindexed-files | count-lines)"
+
+  if [[ "$unindexed" -gt 0 ]] ; then
+    printf "==> adding new files (%'.f files) ...\n" "$unindexed"
+    update-index
   fi
 }
 
