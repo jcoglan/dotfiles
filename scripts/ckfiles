@@ -9,6 +9,7 @@ IGNORE_FILE=~/.ckignore
 ignored_files=("$INDEX_FILE")
 request_cmd=''
 default_cmd=verify
+cmd_args=()
 
 # ------------------------------------------------------------------------
 # Main interface
@@ -16,7 +17,7 @@ default_cmd=verify
 
 main () {
   configure "$@"
-  cmd-"${request_cmd:-$default_cmd}"
+  cmd-"${request_cmd:-$default_cmd}" "${cmd_args[@]}"
 }
 
 configure () {
@@ -39,6 +40,14 @@ configure () {
         ;;
       -m | --missing)
         set-command 'missing'
+        ;;
+      -d | --diff)
+        if [[ $# -lt 3 ]] ; then
+          die 'usage: ckfiles --diff <source> <target>'
+        fi
+        set-command 'diff'
+        cmd_args=("$2" "$3")
+        shift 2
         ;;
       *)
         die "unrecognised input: $1"
@@ -245,6 +254,50 @@ diff-file-lists () {
        <(indexed-files | sort) |
     grep -E "$prefix" |
     cut -c 3-
+}
+
+# ------------------------------------------------------------------------
+# Diff command
+# ------------------------------------------------------------------------
+
+cmd-diff () {
+  local src="$(resolve-index "$1")"
+  local dst="$(resolve-index "$2")"
+  local line
+
+  echo
+  echo "files unique to '$src':"
+  echo
+
+  unique-files "$src" "$dst" | while read -r line ; do
+    echo "    - $line"
+  done
+}
+
+resolve-index () {
+  local arg="${1%/}"
+
+  if [[ -f "$arg" ]] ; then
+    echo "$arg"
+  elif [[ -d "$arg" ]] ; then
+    resolve-index "$arg/$INDEX_FILE"
+  else
+    die "could not find an index at: $arg"
+  fi
+}
+
+unique-files () {
+  local src="$1"
+  local dst="$2"
+
+  diff <(join <(srt "$src") <(srt "$dst")) \
+       <(join <(srt "$src") <(srt "$dst") -a 1) |
+    grep -E '^>' |
+    sed -E 's/^> *[^ ]+ +\*?//g'
+}
+
+srt () {
+  sort -bk '1,1' "$1"
 }
 
 main "$@"
