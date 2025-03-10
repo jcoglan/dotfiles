@@ -51,14 +51,21 @@ cdb-host () {
 
 cdb-edit () {
   local doc="$1"
+  local expr="$2"
   local file="/tmp/couch-doc-$RANDOM.json"
   local editor="${EDITOR:-vim}"
 
-  cdb "$doc" | jq > "$file"
+  if [[ -z "$expr" ]] ; then
+    cdb "$doc" | jq > "$file"
 
-  if "$editor" "$file" ; then
+    if "$editor" "$file" ; then
+      cdb "$doc" -iX PUT -d @"$file"
+    fi
+  else
+    cdb "$doc" | jq "$expr" > "$file"
     cdb "$doc" -iX PUT -d @"$file"
   fi
+
   rm "$file"
 }
 
