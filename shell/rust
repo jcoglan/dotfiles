@@ -6,3 +6,7 @@ export RUSTUP_HOME=/opt/rust/rustup
 if [[ -f "$CARGO_HOME/env" ]] ; then
   source "$CARGO_HOME/env"
 fi
+
+if hash brew 2> /dev/null ; then
+  add-to-path "$(brew --prefix rustup)/bin"
+fi
