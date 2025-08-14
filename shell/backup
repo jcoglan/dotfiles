@@ -1,24 +1,27 @@
 #!/bin/bash
 
 BACKUP_FILES=(
-  ~/.gnupg
   ~/.profile
-  ~/.shell-extra
-  ~/.ssh
-  ~/.vagrant.d
+  ~/.bash{rc,_profile,_aliases}
   ~/.zsh{env,rc}
-  ~/Brewfile
+  ~/.shell-extra
+  ~/.gnupg
+  ~/.ssh
+  ~/.ckignore
+  ~/.vagrant.d
   ~/Desktop
   ~/Documents
   ~/Downloads
   ~/projects
   ~/src
+  ~/Brewfile
   ~/TODO.md
   ~/VirtualBox\ VMs
 )
 
 backup-add-file () {
   local file="$1"
+  local entry
 
   for entry in "${BACKUP_FILES[@]}"; do
     if [[ "$entry" == "$file" ]] ; then
