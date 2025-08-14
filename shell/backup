@@ -100,10 +100,7 @@ backup-github () {
   local url=''
   local dir=''
 
-  github-repos | while read -r repo ; do
-    name="${repo%,*}"
-    url="${repo#*,}"
-
+  github-repos | while read -r name url ; do
     dir="$target/$name.git"
 
     if [[ -d "$dir" ]] ; then
@@ -129,7 +126,7 @@ github-repos () {
     if [[ $(jq 'length' <<<"$response") -eq 0 ]] ; then
       return
     else
-      jq -r 'map(.full_name + "," + .ssh_url)[]' <<<"$response"
+      jq -r '.[] | .full_name + " " + .ssh_url' <<<"$response"
       let page=page+1
     fi
   done
