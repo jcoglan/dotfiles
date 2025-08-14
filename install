@@ -12,16 +12,15 @@ for file in * ; do
   done
 
   dest=~/."$file"
+  echo "$file -> $dest"
 
   if [[ -f "$file/$NUKE" ]] ; then
-    echo "$file/ -> $dest/"
-    rsync -a --delete "$file/" "$dest/"
-    rm "$dest/$NUKE"
+    rsync -a --exclude "$NUKE" --delete{,-excluded} "$file/" "$dest/"
 
   elif [[ -d "$file" ]] ; then
-    cp -vpR "$file/" "$dest"
+    rsync -a "$file/" "$dest/"
 
   elif [[ -f "$file" ]] ; then
-    cp -vp "$file" "$dest"
+    rsync -a "$file" "$dest"
   fi
 done
