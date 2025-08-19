@@ -295,8 +295,8 @@ unique-files () {
   local src="$1"
   local dst="$2"
 
-  diff <(join <(srt "$src") <(srt "$dst")) \
-       <(join <(srt "$src") <(srt "$dst") -a 1) |
+  diff <(join      <(srt "$src") <(srt "$dst")) \
+       <(join -a 1 <(srt "$src") <(srt "$dst")) |
     grep -E '^>' |
     sed -E 's/^> *[^ ]+ +\*?//g'
 }
