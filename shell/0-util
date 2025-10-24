@@ -32,17 +32,6 @@ remove-trailing-lines () {
   mv "$1.sed-tmp" "$1"
 }
 
-self-sign () {
-  local base="$1/server"
-  mkdir -p "$1"
-  openssl genrsa -out "$base.key" 2048
-  openssl req -new -key "$base.key" -out "$base.csr"
-  cp "$base.key" "$base.key.org"
-  openssl rsa -in "$base.key.org" -out "$base.key"
-  openssl x509 -req -days 365 -in "$base.csr" -signkey "$base.key" -out "$base.crt"
-  rm "$base.csr" "$base.key.org"
-}
-
 tm () {
   tmux new -s "$(basename "$PWD")"
 }

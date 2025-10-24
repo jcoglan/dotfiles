@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Sources:
+#
+#   - https://www.baeldung.com/openssl-self-signed-cert
+#
+#   - https://docs.openssl.org/3.6/man1/openssl-pkey/
+#   - https://docs.openssl.org/3.6/man1/openssl-rsa/
+#   - https://docs.openssl.org/3.6/man1/openssl-genrsa/
+#   - https://docs.openssl.org/3.6/man1/openssl-req/
+#   - https://docs.openssl.org/3.6/man1/openssl-x509/
+
+ossl-make-pkey () {
+  local base="$1"
+  mkdir -p "$(dirname "$1")"
+  openssl genrsa -out "$base.key" 2048
+}
+
+ossl-make-csr () {
+  local key="$1"
+  local csr=""
+
+  if [[ -f "$key" ]] ; then
+    csr="$(basename "$key" .key).csr"
+    openssl req -new -key "$key" -out "$csr"
+  else
+    csr="$key.csr"
+    key="$key.key"
+    mkdir -p "$(dirname "$csr")"
+
+    openssl req \
+        -newkey rsa:2048 -noenc -keyout "$key" \
+        -out "$csr"
+  fi
+}
+
+ossl-sign-csr () {
+  local csr="$1"
+  local ca="$2"
+  local domain="$(basename "$csr" .csr)"
+
+  mkdir -p "$(dirname "$domain")"
+
+  openssl x509 \
+      -req -in "$csr" \
+      -CA "$ca.crt" -CAkey "$ca.key" \
+      -days 365 -out "$domain.crt"
+}
+
+ossl-self-sign () {
+  local base="$1"
+  mkdir -p "$(dirname "$1")"
+
+  openssl req \
+      -newkey rsa:2048 -noenc -keyout "$base.key" \
+      -x509 -days 365 -out "$base.crt"
+}
+
+ossl-ca-sign () {
+  local ca="$1"
+  local domain="$2"
+
+  ossl-self-sign "$ca"
+  ossl-make-csr "$domain"
+  ossl-sign-csr "$domain.csr" "$ca"
+  rm "$domain.csr"
+}
