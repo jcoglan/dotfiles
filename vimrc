@@ -66,7 +66,7 @@ autocmd FileType c,cpp,make setlocal
       \ shiftwidth=0
       \ softtabstop=0
 
-autocmd FileType erlang,java,prolog,python setlocal
+autocmd FileType erlang,java,php,prolog,python setlocal
       \ shiftwidth=4
       \ softtabstop=4
 
