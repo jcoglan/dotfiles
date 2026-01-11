@@ -1,0 +1,15 @@
+#!/bin/bash
+
+dir="$1"
+author="$2"
+
+find "$dir" -type d -name .git | while read -r repo ; do
+  cd "$(dirname "$repo")"
+  commit="$(git log --all --format='%ai' -i --author="$author" -n 1 2>/dev/null)"
+  if [[ -n "$commit" ]] ; then
+    echo "$commit" | while read -r date _rest ; do
+      echo -n "$date "
+      pwd
+    done
+  fi
+done
