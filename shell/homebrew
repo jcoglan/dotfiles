@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export HOMEBREW_DOWNLOAD_CONCURRENCY=4
+
 bru-setup-completions () {
   local prefix="$1"
 
