@@ -6,6 +6,7 @@ export NVM_DIR='/opt/nvm'
 
 NVM_SCRIPTS=(
   /opt/homebrew/opt/nvm
+  /home/linuxbrew/.linuxbrew/opt/nvm
   /usr/local/opt/nvm
   /opt/nvm
   "$HOME/.nvm"
