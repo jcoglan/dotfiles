@@ -11,6 +11,7 @@ cursor-color = #879da5
 font-family = SF Mono
 font-size = 12
 adjust-cell-width = -7%
+adjust-cell-height = 10%
 # alpha-blending = linear
 
 auto-update = off
