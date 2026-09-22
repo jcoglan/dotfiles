@@ -77,6 +77,20 @@ cdb-delete () {
   cdb "$doc" -X DELETE -H "If-Match: $rev"
 }
 
+edit-json-gz () {
+  local file="$1"
+  local unzipped="${file%.gz}"
+  local tmp="tmp-edit-$unzipped"
+
+  gunzip "$file"
+  jq < "$unzipped" > "$tmp"
+
+  "${EDITOR:-vim}" "$tmp"
+
+  mv "$tmp" "$unzipped"
+  gzip "$unzipped"
+}
+
 # ------------------------------------------------------------------------
 # Sessions, cookie-based auth
 # ------------------------------------------------------------------------
