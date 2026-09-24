@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Git info in prompt
-# http://railstips.org/2009/2/2/bedazzle-your-bash-prompt-with-git-info
-get-git-branch () {
-  ref=$(git symbolic-ref --short HEAD 2> /dev/null) || return
-  echo "[$ref]"
-}
-
 # shellcheck disable=SC2034
 if [[ -n "$BASH_VERSION" ]] ; then
   PS_BLACK='\e[0;30m'
@@ -31,6 +24,21 @@ elif [[ -n "$ZSH_VERSION" ]] ; then
 fi
 
 PS1="${PS_RED}(\$(get-nvm-version),\$(get-chruby-version)) ${PS_BLUE}${PS_PWD} ${PS_YELLOW}\$(get-git-branch)${PS_DEFAULT}${PS_LF}$ "
+
+get-nvm-version () {
+  echo "node-$(nvm current)"
+}
+
+get-chruby-version () {
+  chruby | grep -E '\*' | cut -d ' ' -f 3
+}
+
+# Git info in prompt
+# http://railstips.org/2009/2/2/bedazzle-your-bash-prompt-with-git-info
+get-git-branch () {
+  ref=$(git symbolic-ref --short HEAD 2> /dev/null) || return
+  echo "[$ref]"
+}
 
 # Make Vim et al use the full color palette
 if [[ "$COLORTERM" == 'gnome-terminal' ]] ; then

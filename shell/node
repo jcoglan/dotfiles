@@ -24,18 +24,6 @@ for script in "${NVM_SCRIPTS[@]}" ; do
 done
 unset script
 
-get-nvm-version () {
-  local version
-  version="$(echo "$NVM_BIN" | cut -d / -f 4)"
-
-  if [[ "$version" == versions ]] ; then
-    echo -n 'node-'
-    echo "$NVM_BIN" | cut -d / -f 6
-  else
-    echo "node-$version"
-  fi
-}
-
 nvm-old-versions () {
   local v
 

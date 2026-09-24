@@ -18,10 +18,6 @@ for script in "${CHRUBY_SCRIPTS[@]}" ; do
 done
 unset script
 
-get-chruby-version () {
-  chruby | grep -E '\*' | cut -d ' ' -f 3
-}
-
 ruby-install-with-openssl-1-0 () {
   sudo ruby-install \
       -r /opt/rubies "$@" -- \
