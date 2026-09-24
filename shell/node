@@ -2,7 +2,7 @@
 
 alias ne='npm run-script'
 
-export NVM_DIR='/opt/nvm'
+export NVM_DIR="${NVM_DIR:-/opt/nvm}"
 
 NVM_SCRIPTS=(
   /opt/homebrew/opt/nvm
