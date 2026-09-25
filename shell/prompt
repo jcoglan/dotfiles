@@ -43,6 +43,9 @@ get-git-branch () {
 # make command substitution work in PS1
 if [[ -n "$ZSH_VERSION" ]] ; then
   setopt PROMPT_SUBST
+
+  # makr CTRL-R work in tmux
+  bindkey -e
 fi
 
 # Make Vim et al use the full color palette
