@@ -40,6 +40,11 @@ get-git-branch () {
   echo "[$ref]"
 }
 
+# make command substitution work in PS1
+if [[ -n "$ZSH_VERSION" ]] ; then
+  setopt PROMPT_SUBST
+fi
+
 # Make Vim et al use the full color palette
 if [[ "$COLORTERM" == 'gnome-terminal' ]] ; then
   export TERM=xterm-256color
