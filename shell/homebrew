@@ -11,7 +11,7 @@ bru-setup-completions () {
 
   if [[ -n "$BASH_VERSION" && -f "$prefix/etc/bash_completion" ]] ; then
     # shellcheck source=/dev/null
-    . "$prefix/etc/bash_completion"
+    source "$prefix/etc/bash_completion"
 
   elif [[ -n "$ZSH_VERSION" ]] ; then
     FPATH="$prefix/share/zsh-completions:$FPATH"

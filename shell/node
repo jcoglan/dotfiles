@@ -15,11 +15,11 @@ NVM_SCRIPTS=(
 for script in "${NVM_SCRIPTS[@]}" ; do
   if [[ -f "$script/nvm.sh" ]] ; then
     # shellcheck source=/dev/null
-    . "$script/nvm.sh"
+    source "$script/nvm.sh"
   fi
   if [[ -f "$script/bash_completion" ]] ; then
     # shellcheck source=/dev/null
-    . "$script/bash_completion"
+    source "$script/bash_completion"
   fi
 done
 unset script
@@ -46,4 +46,4 @@ npm-run () {
 }
 
 # shellcheck source=/dev/null
-hash vault 2> /dev/null && . "$( vault --initpath )"
+hash vault 2> /dev/null && source "$( vault --initpath )"

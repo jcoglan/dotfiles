@@ -13,7 +13,7 @@ CHRUBY_SCRIPTS=(
 for script in "${CHRUBY_SCRIPTS[@]}" ; do
   if [[ -f "$script" ]] ; then
     # shellcheck source=/dev/null
-    . "$script"
+    source "$script"
   fi
 done
 unset script
