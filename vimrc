@@ -55,7 +55,7 @@ autocmd BufEnter * normal zR
 autocmd BufEnter *.erb set filetype=html
 autocmd BufEnter Berksfile,Brewfile set filetype=ruby
 
-autocmd FileType markdown,rst,tex,text setlocal
+autocmd FileType asciidoc,markdown,rst,tex,text setlocal
       \ shiftwidth=2
       \ softtabstop=2
       \ formatoptions+=t
