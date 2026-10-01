@@ -44,6 +44,3 @@ npm-run () {
     fi
   done
 }
-
-# shellcheck source=/dev/null
-hash vault 2> /dev/null && source "$( vault --initpath )"
